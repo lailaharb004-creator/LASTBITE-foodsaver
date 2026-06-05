@@ -482,3 +482,6 @@ $RECYCLE.BIN/
 
 # Vim temporary swap files
 *.swp
+
+# Keep seeded demo package images (override NuGet packages/* rule)
+!wwwroot/uploads/packages/seed-*.jpg
