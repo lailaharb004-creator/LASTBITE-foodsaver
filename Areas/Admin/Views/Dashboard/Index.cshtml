@@ -1,0 +1,192 @@
+@using LastBiteNew.ViewModels.Admin
+@model AdminDashboardViewModel
+@{
+    ViewData["Title"] = "Admin Dashboard";
+    Layout = "_AdminLayout";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h4 class="fw-bold mb-0">Dashboard</h4>
+    <small class="text-muted d-none d-sm-block">@DateTime.Now.ToString("dddd, MMMM d yyyy")</small>
+</div>
+
+<!-- KPI Cards — 2 per row on mobile, 4 on desktop -->
+<div class="row g-3 mb-4">
+    <div class="col-6 col-md-3">
+        <div class="kpi-card kpi-green">
+            <div class="kpi-number">@Model.TotalApprovedRestaurants</div>
+            <div class="kpi-label">Active Restaurants</div>
+        </div>
+    </div>
+    <div class="col-6 col-md-3">
+        <div class="kpi-card kpi-orange">
+            <div class="kpi-number">@Model.PendingApprovals</div>
+            <div class="kpi-label">Pending Approvals</div>
+        </div>
+    </div>
+    <div class="col-6 col-md-3">
+        <div class="kpi-card kpi-blue">
+            <div class="kpi-number">@Model.TotalReservations</div>
+            <div class="kpi-label">Total Reservations</div>
+        </div>
+    </div>
+    <div class="col-6 col-md-3">
+        <div class="kpi-card kpi-dark">
+            <div class="kpi-number">@Model.MealsSaved</div>
+            <div class="kpi-label">Meals Rescued</div>
+        </div>
+    </div>
+</div>
+
+<div class="row g-3 mb-4">
+    <div class="col-6 col-md-3">
+        <div class="kpi-card kpi-green">
+            <div class="kpi-number">@Model.CompletedReservations</div>
+            <div class="kpi-label">Completed Pickups</div>
+        </div>
+    </div>
+    <div class="col-6 col-md-3">
+        <div class="kpi-card kpi-orange">
+            <div class="kpi-number" style="font-size:1.4rem;">JD @Model.TotalCommissionEarned.ToString("N2")</div>
+            <div class="kpi-label">Commission Earned</div>
+        </div>
+    </div>
+    <div class="col-6 col-md-3">
+        <div class="kpi-card kpi-blue">
+            <div class="kpi-number">@Model.TotalCustomers</div>
+            <div class="kpi-label">Total Users</div>
+        </div>
+    </div>
+</div>
+
+<!-- Pending Approvals -->
+@if (!Model.PendingRestaurants.Any())
+{
+    <div class="card">
+        <div class="card-body text-center py-4 text-muted">
+            ✅ No pending restaurant approvals.
+        </div>
+    </div>
+}
+else
+{
+    <div class="card">
+        <div class="card-header d-flex justify-content-between align-items-center">
+            <h6 class="mb-0 fw-semibold">⏳ Pending Approvals</h6>
+            <span class="badge bg-warning text-dark">@Model.PendingRestaurants.Count pending</span>
+        </div>
+
+        <!-- Desktop table -->
+        <div class="card-body p-0 d-none d-md-block">
+            <table class="table table-hover align-middle mb-0">
+                <thead>
+                    <tr style="background:#f0f4f0;border-bottom:2px solid #dee2e6;">
+                        <th class="ps-4 py-3" style="color:#2D6A4F;font-size:0.78rem;text-transform:uppercase;letter-spacing:.05em;">Restaurant</th>
+                        <th class="py-3"       style="color:#2D6A4F;font-size:0.78rem;text-transform:uppercase;letter-spacing:.05em;">Owner</th>
+                        <th class="py-3"       style="color:#2D6A4F;font-size:0.78rem;text-transform:uppercase;letter-spacing:.05em;">Category</th>
+                        <th class="py-3"       style="color:#2D6A4F;font-size:0.78rem;text-transform:uppercase;letter-spacing:.05em;">City</th>
+                        <th class="py-3"       style="color:#2D6A4F;font-size:0.78rem;text-transform:uppercase;letter-spacing:.05em;">Applied</th>
+                        <th class="py-3 pe-4"  style="color:#2D6A4F;font-size:0.78rem;text-transform:uppercase;letter-spacing:.05em;">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var r in Model.PendingRestaurants)
+                    {
+                        <tr style="border-left:3px solid #F4A261;">
+                            <td class="ps-4 py-3">
+                                <div class="fw-semibold">@r.Name</div>
+                            </td>
+                            <td class="py-3">
+                                <div class="fw-semibold">@r.OwnerName</div>
+                                <small class="text-muted">@r.OwnerEmail</small>
+                            </td>
+                            <td class="py-3">
+                                <span class="badge" style="background:#e8f5e9;color:#2D6A4F;font-size:0.75rem;">@r.Category</span>
+                            </td>
+                            <td class="py-3">@r.City</td>
+                            <td class="py-3">
+                                <small class="text-muted">@r.CreatedAt.ToString("MMM d, yyyy")</small>
+                            </td>
+                            <td class="py-3 pe-4">
+                                <form action="/Admin/Restaurants/Approve/@r.RestaurantId" method="post" class="d-inline">
+                                    @Html.AntiForgeryToken()
+                                    <button type="submit" class="btn btn-success btn-sm">Approve</button>
+                                </form>
+                                <button type="button" class="btn btn-outline-danger btn-sm ms-1"
+                                        onclick="showRejectModal(@r.RestaurantId, '@r.Name')">
+                                    Reject
+                                </button>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Mobile cards -->
+        <div class="d-md-none p-3">
+            @foreach (var r in Model.PendingRestaurants)
+            {
+                <div class="py-3" style="border-left:3px solid #F4A261; padding-left:12px !important; @(r != Model.PendingRestaurants.Last() ? "border-bottom:1px solid #f0f0f0;" : "")">
+                    <div class="d-flex justify-content-between align-items-start mb-2">
+                        <div>
+                            <div class="fw-bold">@r.Name</div>
+                            <span class="badge mt-1" style="background:#e8f5e9;color:#2D6A4F;font-size:0.7rem;">@r.Category</span>
+                        </div>
+                        <small class="text-muted ms-2">@r.CreatedAt.ToString("MMM d")</small>
+                    </div>
+                    <div class="mb-3">
+                        <div class="fw-semibold" style="font-size:0.875rem;">@r.OwnerName</div>
+                        <small class="text-muted">@r.OwnerEmail · @r.City</small>
+                    </div>
+                    <div class="d-flex gap-2">
+                        <form action="/Admin/Restaurants/Approve/@r.RestaurantId" method="post" class="flex-grow-1">
+                            @Html.AntiForgeryToken()
+                            <button type="submit" class="btn btn-success btn-sm w-100">Approve</button>
+                        </form>
+                        <button type="button" class="btn btn-outline-danger btn-sm flex-grow-1"
+                                onclick="showRejectModal(@r.RestaurantId, '@r.Name')">
+                            Reject
+                        </button>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+}
+
+<!-- Reject Modal -->
+<div class="modal fade" id="rejectModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h6 class="modal-title fw-bold">Reject Restaurant</h6>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <form id="rejectForm" method="post">
+                @Html.AntiForgeryToken()
+                <div class="modal-body">
+                    <p class="mb-3">Rejecting: <strong id="restaurantNameText"></strong></p>
+                    <label class="form-label fw-semibold">Reason for rejection</label>
+                    <textarea name="reason" class="form-control" rows="3"
+                              placeholder="Explain why this application is rejected..."
+                              required></textarea>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-danger btn-sm">Confirm Reject</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        function showRejectModal(id, name) {
+            document.getElementById('restaurantNameText').textContent = name;
+            document.getElementById('rejectForm').action = '/Admin/Restaurants/Reject/' + id;
+            new bootstrap.Modal(document.getElementById('rejectModal')).show();
+        }
+    </script>
+}

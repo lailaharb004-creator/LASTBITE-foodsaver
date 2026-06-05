@@ -1,0 +1,211 @@
+@using LastBiteNew.ViewModels.Customer
+@model List<MyReservationRowViewModel>
+@{
+    ViewData["Title"] = "My Reservations";
+
+    string StatusColor(ReservationStatus s) => s switch
+    {
+        ReservationStatus.Completed             => "#2D6A4F",
+        ReservationStatus.Pending               => "#F4A261",
+        ReservationStatus.NoShow                => "#6c757d",
+        ReservationStatus.CancelledByCustomer   => "#E63946",
+        ReservationStatus.CancelledByRestaurant => "#E63946",
+        _                                       => "#6c757d"
+    };
+    string StatusLabel(ReservationStatus s) => s switch
+    {
+        ReservationStatus.CancelledByCustomer   => "Cancelled",
+        ReservationStatus.CancelledByRestaurant => "Cancelled",
+        ReservationStatus.NoShow                => "No-Show",
+        _                                       => s.ToString()
+    };
+}
+
+<div class="container py-4">
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h4 class="fw-bold mb-0">My Reservations</h4>
+        <a href="/Packages" class="btn btn-success btn-sm">Browse Packages</a>
+    </div>
+
+    <!-- Filter Tabs -->
+    <div class="d-flex flex-wrap gap-2 mb-4">
+        <a href="/Reservations/MyReservations"
+           class="btn btn-sm @(ViewBag.CurrentStatus == null ? "btn-success" : "btn-outline-success")">All</a>
+        <a href="/Reservations/MyReservations?status=Pending"
+           class="btn btn-sm @(ViewBag.CurrentStatus == "Pending" ? "btn-warning" : "btn-outline-warning")">Pending</a>
+        <a href="/Reservations/MyReservations?status=Completed"
+           class="btn btn-sm @(ViewBag.CurrentStatus == "Completed" ? "btn-success" : "btn-outline-success")">Completed</a>
+        <a href="/Reservations/MyReservations?status=CancelledByCustomer"
+           class="btn btn-sm @(ViewBag.CurrentStatus == "CancelledByCustomer" ? "btn-danger" : "btn-outline-danger")">Cancelled</a>
+    </div>
+
+    @if (!Model.Any())
+    {
+        <div class="card">
+            <div class="card-body text-center py-5 text-muted">
+                <div style="font-size:3rem;">🛍️</div>
+                <h5 class="mt-3 mb-1">No reservations yet</h5>
+                <p class="small mb-3">Browse available packages and make your first reservation.</p>
+                <a href="/Packages" class="btn btn-success">Browse Packages</a>
+            </div>
+        </div>
+    }
+    else
+    {
+        <!-- Desktop -->
+        <div class="card d-none d-md-block">
+            <div class="card-body p-0">
+                <table class="table table-hover align-middle mb-0">
+                    <thead>
+                        <tr style="background:#f0f4f0;border-bottom:2px solid #dee2e6;">
+                            <th class="ps-4 py-3" style="color:#2D6A4F;font-size:0.78rem;text-transform:uppercase;letter-spacing:.05em;">Code</th>
+                            <th class="py-3"       style="color:#2D6A4F;font-size:0.78rem;text-transform:uppercase;letter-spacing:.05em;">Package</th>
+                            <th class="py-3"       style="color:#2D6A4F;font-size:0.78rem;text-transform:uppercase;letter-spacing:.05em;">Restaurant</th>
+                            <th class="py-3"       style="color:#2D6A4F;font-size:0.78rem;text-transform:uppercase;letter-spacing:.05em;">Pickup</th>
+                            <th class="py-3"       style="color:#2D6A4F;font-size:0.78rem;text-transform:uppercase;letter-spacing:.05em;">Total</th>
+                            <th class="py-3"       style="color:#2D6A4F;font-size:0.78rem;text-transform:uppercase;letter-spacing:.05em;">Status</th>
+                            <th class="py-3 pe-4"  style="color:#2D6A4F;font-size:0.78rem;text-transform:uppercase;letter-spacing:.05em;">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var r in Model)
+                        {
+                            <tr style="border-left:3px solid @StatusColor(r.Status);">
+                                <td class="ps-4 py-3">
+                                    <code class="fw-semibold" style="color:#2D6A4F;">@r.ReservationCode</code>
+                                    <div><small class="text-muted">@r.ReservedAt.ToString("MMM d, yyyy")</small></div>
+                                </td>
+                                <td class="py-3 fw-semibold">@r.PackageName</td>
+                                <td class="py-3">
+                                    <div>@r.RestaurantName</div>
+                                    <small class="text-muted">@r.City</small>
+                                </td>
+                                <td class="py-3">
+                                    <div style="font-size:0.875rem;">@r.PickupStartTime.ToString("MMM d")</div>
+                                    <small class="text-muted">@r.PickupStartTime.ToString("HH:mm") – @r.PickupEndTime.ToString("HH:mm")</small>
+                                </td>
+                                <td class="py-3 fw-semibold text-success">JD @r.TotalPrice.ToString("N2")</td>
+                                <td class="py-3">
+                                    <span class="badge badge-@r.Status.ToString().ToLower() px-2 py-1">@StatusLabel(r.Status)</span>
+                                </td>
+                                <td class="py-3 pe-4">
+                                    @if (r.CanCancel)
+                                    {
+                                        <button type="button" class="btn btn-sm btn-outline-danger"
+                                                onclick="openCancel(@r.ReservationId)">Cancel</button>
+                                    }
+                                    else if (r.CanReview)
+                                    {
+                                        <a href="/Reviews/Create/@r.ReservationId" class="btn btn-sm btn-success">★ Leave Review</a>
+                                    }
+                                    else if (r.HasReview)
+                                    {
+                                        <span class="text-success small fw-semibold">★ Reviewed</span>
+                                    }
+                                    else if (r.Status == ReservationStatus.Pending)
+                                    {
+                                        <span class="text-muted small" style="cursor:help; border-bottom:1px dotted #adb5bd;"
+                                              data-bs-toggle="tooltip" data-bs-placement="left"
+                                              title="Cancellations are only allowed up to 1 hour before pickup starts.">
+                                            Cancellation closed ⓘ
+                                        </span>
+                                    }
+                                    else
+                                    {
+                                        <span class="text-muted small">—</span>
+                                    }
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Mobile -->
+        <div class="d-md-none">
+            @foreach (var r in Model)
+            {
+                <div class="card mb-3" style="border-left:4px solid @StatusColor(r.Status); box-shadow:0 2px 8px rgba(0,0,0,0.07);">
+                    <div class="card-body p-3">
+                        <div class="d-flex justify-content-between align-items-start mb-2">
+                            <code class="fw-bold" style="color:#2D6A4F;">@r.ReservationCode</code>
+                            <span class="badge badge-@r.Status.ToString().ToLower()">@StatusLabel(r.Status)</span>
+                        </div>
+                        <div class="fw-semibold">@r.PackageName</div>
+                        <div class="text-muted small mb-2">@r.RestaurantName · @r.City</div>
+                        <div class="row g-2">
+                            <div class="col-6">
+                                <div class="text-muted" style="font-size:0.7rem;text-transform:uppercase;">Pickup</div>
+                                <div style="font-size:0.82rem;">@r.PickupStartTime.ToString("MMM d, HH:mm")</div>
+                            </div>
+                            <div class="col-6">
+                                <div class="text-muted" style="font-size:0.7rem;text-transform:uppercase;">Total</div>
+                                <div class="fw-bold text-success">JD @r.TotalPrice.ToString("N2")</div>
+                            </div>
+                        </div>
+                        @if (r.CanCancel)
+                        {
+                            <button type="button" class="btn btn-sm btn-outline-danger w-100 mt-3"
+                                    onclick="openCancel(@r.ReservationId)">Cancel Reservation</button>
+                        }
+                        else if (r.CanReview)
+                        {
+                            <a href="/Reviews/Create/@r.ReservationId" class="btn btn-sm btn-success w-100 mt-3">★ Leave Review</a>
+                        }
+                        else if (r.HasReview)
+                        {
+                            <div class="text-success small fw-semibold mt-3">★ Reviewed</div>
+                        }
+                        else if (r.Status == ReservationStatus.Pending)
+                        {
+                            <div class="text-muted small mt-3">Cancellation closed (within 1h of pickup)</div>
+                        }
+                    </div>
+                </div>
+            }
+        </div>
+    }
+</div>
+
+<!-- Cancel confirmation modal (BR-011) -->
+<div class="modal fade" id="cancelModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content" style="border-radius:16px;">
+            <div class="modal-header border-0">
+                <h6 class="modal-title fw-bold">Cancel reservation?</h6>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <form id="cancelForm" method="post">
+                @Html.AntiForgeryToken()
+                <div class="modal-body pt-0">
+                    <p class="small text-muted mb-3">
+                        Cancellations are allowed up to <strong>1 hour before pickup</strong>. This cannot be undone.
+                    </p>
+                    <label class="form-label small fw-semibold">Reason (optional)</label>
+                    <textarea name="reason" class="form-control" rows="2" maxlength="300"
+                              placeholder="Let the restaurant know why (optional)"></textarea>
+                </div>
+                <div class="modal-footer border-0">
+                    <button type="button" class="btn btn-sm btn-outline-secondary" data-bs-dismiss="modal">Keep it</button>
+                    <button type="submit" class="btn btn-sm btn-danger">Cancel reservation</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        function openCancel(id) {
+            document.getElementById('cancelForm').action = '/Reservations/Cancel/' + id;
+            new bootstrap.Modal(document.getElementById('cancelModal')).show();
+        }
+        document.addEventListener('DOMContentLoaded', function () {
+            document.querySelectorAll('[data-bs-toggle="tooltip"]').forEach(function (el) {
+                new bootstrap.Tooltip(el);
+            });
+        });
+    </script>
+}

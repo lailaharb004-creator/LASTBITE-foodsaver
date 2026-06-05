@@ -1,0 +1,126 @@
+@using LastBiteNew.ViewModels.Account
+@model RegisterRestaurantViewModel
+@{
+    ViewData["Title"] = "List Your Restaurant";
+}
+
+<div class="auth-wrap">
+    <div class="auth-card auth-card-wide">
+
+        <!-- Left: image side -->
+        <div class="auth-visual">
+            <div class="auth-logo">🌿 Last Bite</div>
+            <div>
+                <h1>Grow with us.</h1>
+                <p class="auth-lead">Turn surplus food into revenue, reach new customers, and cut waste — list your restaurant in minutes.</p>
+                <div class="auth-feature"><span class="auth-feature-icon">📈</span> New revenue from surplus</div>
+                <div class="auth-feature"><span class="auth-feature-icon">👥</span> Reach eco-conscious diners</div>
+                <div class="auth-feature"><span class="auth-feature-icon">♻️</span> Reduce daily food waste</div>
+            </div>
+        </div>
+
+        <!-- Right: form side -->
+        <div class="auth-pane auth-pane-scroll">
+            <div class="auth-head">
+                <h2>List as a restaurant</h2>
+                <p class="auth-sub">Tell us about you and your business. We'll review your application shortly.</p>
+            </div>
+
+            <form asp-action="RegisterRestaurant" method="post" enctype="multipart/form-data">
+                @Html.AntiForgeryToken()
+                <div asp-validation-summary="ModelOnly" class="alert alert-danger py-2 small"></div>
+
+                <div class="auth-section-title">Account Details</div>
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <label asp-for="FullName" class="form-label">Owner Name</label>
+                        <input asp-for="FullName" class="form-control" placeholder="Your full name" />
+                        <span asp-validation-for="FullName" class="text-danger small"></span>
+                    </div>
+                    <div class="col-md-6">
+                        <label asp-for="Email" class="form-label">Email</label>
+                        <input asp-for="Email" class="form-control" placeholder="business@email.com" />
+                        <span asp-validation-for="Email" class="text-danger small"></span>
+                    </div>
+                    <div class="col-md-6">
+                        <label asp-for="Password" class="form-label">Password</label>
+                        <input asp-for="Password" class="form-control" placeholder="••••••••" />
+                        <span asp-validation-for="Password" class="text-danger small"></span>
+                    </div>
+                    <div class="col-md-6">
+                        <label asp-for="ConfirmPassword" class="form-label">Confirm Password</label>
+                        <input asp-for="ConfirmPassword" class="form-control" placeholder="••••••••" />
+                        <span asp-validation-for="ConfirmPassword" class="text-danger small"></span>
+                    </div>
+                </div>
+
+                <div class="auth-section-title mt-4">Restaurant Details</div>
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <label asp-for="RestaurantName" class="form-label">Restaurant Name</label>
+                        <input asp-for="RestaurantName" class="form-control" placeholder="e.g. The Green Bakery" />
+                        <span asp-validation-for="RestaurantName" class="text-danger small"></span>
+                    </div>
+                    <div class="col-md-6">
+                        <label asp-for="Category" class="form-label">Category</label>
+                        <select asp-for="Category"
+                                asp-items="Html.GetEnumSelectList<RestaurantCategory>()"
+                                class="form-select">
+                            <option value="">-- Select Category --</option>
+                        </select>
+                        <span asp-validation-for="Category" class="text-danger small"></span>
+                    </div>
+                    <div class="col-md-6">
+                        <label asp-for="PhoneNumber" class="form-label">Phone Number</label>
+                        <input asp-for="PhoneNumber" class="form-control" placeholder="+962 7 0000 0000" />
+                        <span asp-validation-for="PhoneNumber" class="text-danger small"></span>
+                    </div>
+                    <div class="col-md-6">
+                        <label asp-for="City" class="form-label">City</label>
+                        <input asp-for="City" class="form-control" placeholder="Amman" />
+                        <span asp-validation-for="City" class="text-danger small"></span>
+                    </div>
+                    <div class="col-12">
+                        <label asp-for="Address" class="form-label">Address</label>
+                        <input asp-for="Address" class="form-control" placeholder="Street address" />
+                        <span asp-validation-for="Address" class="text-danger small"></span>
+                    </div>
+                    <div class="col-12">
+                        <label asp-for="Description" class="form-label">Description</label>
+                        <textarea asp-for="Description" class="form-control" rows="3"
+                                  placeholder="Tell customers about your restaurant..."></textarea>
+                        <span asp-validation-for="Description" class="text-danger small"></span>
+                    </div>
+                    <div class="col-12">
+                        <label asp-for="LogoImage" class="form-label">Upload Image</label>
+                        <label class="auth-upload" for="LogoImage">
+                            <span class="auth-upload-icon">🖼️</span>
+                            <span id="uploadText">Click to upload your restaurant image (JPG, PNG, WEBP)</span>
+                        </label>
+                        <input asp-for="LogoImage" id="LogoImage" class="d-none" accept="image/*" />
+                        <span asp-validation-for="LogoImage" class="text-danger small"></span>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-orange btn-submit mt-4">Submit Application</button>
+            </form>
+
+            <div class="auth-divider">or</div>
+            <p class="auth-switch">Already have an account? <a asp-action="Login">Login</a></p>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScripts");
+    }
+    <script>
+        document.getElementById('LogoImage')?.addEventListener('change', function () {
+            var t = document.getElementById('uploadText');
+            t.textContent = this.files && this.files.length
+                ? '✓ ' + this.files[0].name
+                : 'Click to upload your restaurant image (JPG, PNG, WEBP)';
+        });
+    </script>
+}

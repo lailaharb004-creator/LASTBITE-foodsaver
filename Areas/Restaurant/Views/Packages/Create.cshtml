@@ -1,0 +1,115 @@
+@model PackageFormViewModel
+@{
+    ViewData["Title"] = "Add Package";
+    Layout = "_RestaurantLayout";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h4 class="fw-bold mb-0">Add Package</h4>
+    <a href="/Restaurant/Packages/Index" class="btn btn-outline-secondary btn-sm">Back to Packages</a>
+</div>
+
+<div class="card">
+    <div class="card-body">
+        <form asp-area="Restaurant" asp-controller="Packages" asp-action="Create" method="post" enctype="multipart/form-data">
+            @Html.AntiForgeryToken()
+
+            <div class="row g-3">
+
+                <!-- Name -->
+                <div class="col-12">
+                    <label asp-for="Name" class="form-label fw-semibold"></label>
+                    <input asp-for="Name" class="form-control" placeholder="e.g. Bakery Surprise Box" />
+                    <span asp-validation-for="Name" class="text-danger small"></span>
+                </div>
+
+                <!-- Description -->
+                <div class="col-12">
+                    <label asp-for="Description" class="form-label fw-semibold"></label>
+                    <textarea asp-for="Description" class="form-control" rows="3"
+                              placeholder="Describe what's in the package..."></textarea>
+                    <span asp-validation-for="Description" class="text-danger small"></span>
+                </div>
+
+                <!-- Prices -->
+                <div class="col-md-4">
+                    <label asp-for="OriginalPrice" class="form-label fw-semibold"></label>
+                    <div class="input-group">
+                        <span class="input-group-text">JD</span>
+                        <input asp-for="OriginalPrice" class="form-control" type="number"
+                               step="0.01" min="0.01" placeholder="0.00" />
+                    </div>
+                    <span asp-validation-for="OriginalPrice" class="text-danger small"></span>
+                </div>
+
+                <div class="col-md-4">
+                    <label asp-for="DiscountedPrice" class="form-label fw-semibold"></label>
+                    <div class="input-group">
+                        <span class="input-group-text">JD</span>
+                        <input asp-for="DiscountedPrice" class="form-control" type="number"
+                               step="0.01" min="0.01" placeholder="0.00" />
+                    </div>
+                    <span asp-validation-for="DiscountedPrice" class="text-danger small"></span>
+                </div>
+
+                <!-- Quantity -->
+                <div class="col-md-4">
+                    <label asp-for="TotalQuantity" class="form-label fw-semibold"></label>
+                    <input asp-for="TotalQuantity" class="form-control" type="number" min="1" max="20" />
+                    <span asp-validation-for="TotalQuantity" class="text-danger small"></span>
+                </div>
+
+                <!-- Pickup Start -->
+                <div class="col-md-6">
+                    <label asp-for="PickupStartTime" class="form-label fw-semibold"></label>
+                    <input asp-for="PickupStartTime" class="form-control" type="datetime-local"
+                           value="@Model.PickupStartTime.ToString("yyyy-MM-ddTHH:mm")" />
+                    <span asp-validation-for="PickupStartTime" class="text-danger small"></span>
+                </div>
+
+                <!-- Pickup End -->
+                <div class="col-md-6">
+                    <label asp-for="PickupEndTime" class="form-label fw-semibold"></label>
+                    <input asp-for="PickupEndTime" class="form-control" type="datetime-local"
+                           value="@Model.PickupEndTime.ToString("yyyy-MM-ddTHH:mm")" />
+                    <span asp-validation-for="PickupEndTime" class="text-danger small"></span>
+                </div>
+
+                <!-- Food Type -->
+                <div class="col-md-6">
+                    <label asp-for="FoodType" class="form-label fw-semibold"></label>
+                    <select asp-for="FoodType" class="form-select"
+                            asp-items="Html.GetEnumSelectList<FoodType>()"></select>
+                    <span asp-validation-for="FoodType" class="text-danger small"></span>
+                </div>
+
+                <!-- Allergen Info -->
+                <div class="col-md-6">
+                    <label asp-for="AllergenInfo" class="form-label fw-semibold"></label>
+                    <input asp-for="AllergenInfo" class="form-control"
+                           placeholder="e.g. Contains gluten, dairy (optional)" />
+                    <span asp-validation-for="AllergenInfo" class="text-danger small"></span>
+                </div>
+
+                <!-- Image -->
+                <div class="col-12">
+                    <label asp-for="ImageFile" class="form-label fw-semibold"></label>
+                    <input asp-for="ImageFile" class="form-control" type="file" accept="image/*" />
+                    <div class="form-text">Upload a real photo of the food (JPG, PNG, WEBP). Recommended — shown on the package card.</div>
+                    <span asp-validation-for="ImageFile" class="text-danger small"></span>
+                </div>
+
+            </div>
+
+            <div class="mt-4 d-flex gap-2">
+                <button type="submit" class="btn btn-success">Create Package</button>
+                <a href="/Restaurant/Packages/Index" class="btn btn-outline-secondary">Cancel</a>
+            </div>
+
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScripts" />
+}

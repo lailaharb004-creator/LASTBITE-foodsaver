@@ -1,0 +1,194 @@
+@using LastBiteNew.ViewModels.Customer
+@model PackageDetailViewModel
+@{
+    ViewData["Title"] = Model.PackageName;
+}
+
+<div class="container py-4">
+    <a href="/Packages" class="btn btn-outline-secondary btn-sm mb-4">← Back to Browse</a>
+
+    <div class="row g-4">
+
+        <!-- Left: Package Info -->
+        <div class="col-lg-7">
+            <div class="card" style="border-radius:16px; overflow:hidden;">
+                @if (!string.IsNullOrEmpty(Model.ImagePath))
+                {
+                    <div style="height:240px; background:url('@Model.ImagePath') center/cover;"></div>
+                }
+                else
+                {
+                    <div style="height:240px; background:@PackageVisual.Gradient(Model.FoodType); display:flex; align-items:center; justify-content:center;">
+                        <span style="font-size:6rem;">@PackageVisual.Icon(Model.FoodType)</span>
+                    </div>
+                }
+                <div class="card-body p-4">
+
+                    <!-- Header -->
+                    <div class="d-flex justify-content-between align-items-start mb-3">
+                        <div>
+                            <h3 class="fw-bold mb-1">@Model.PackageName</h3>
+                            <div style="color:#555;">
+                                🏪 <a href="/Restaurants/@Model.RestaurantId" class="fw-semibold text-decoration-none" style="color:#2D6A4F;">@Model.RestaurantName</a> · @Model.City
+                            </div>
+                            @if (Model.RestaurantRating > 0)
+                            {
+                                <div class="mt-1">
+                                    <small class="text-warning fw-semibold">⭐ @Model.RestaurantRating.ToString("F1")</small>
+                                    <small class="text-muted ms-1">(@Model.TotalReviews review@(Model.TotalReviews != 1 ? "s" : ""))</small>
+                                </div>
+                            }
+                        </div>
+                        <span class="savings-badge fs-6">-@Model.SavingsPercent%</span>
+                    </div>
+
+                    <!-- Description -->
+                    <p class="text-muted mb-4">@Model.Description</p>
+
+                    <!-- Details grid -->
+                    <div class="row g-3 mb-4">
+                        <div class="col-6">
+                            <div class="p-3 rounded" style="background:#f8f9fa;">
+                                <div class="text-muted" style="font-size:0.72rem;text-transform:uppercase;letter-spacing:.05em;">Food Type</div>
+                                <div class="fw-semibold mt-1">@Model.FoodType</div>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="p-3 rounded" style="background:#f8f9fa;">
+                                <div class="text-muted" style="font-size:0.72rem;text-transform:uppercase;letter-spacing:.05em;">Pickup Window</div>
+                                <div class="fw-semibold mt-1" style="font-size:0.875rem;">@Model.PickupStartTime.ToString("MMM d, HH:mm") – @Model.PickupEndTime.ToString("HH:mm")</div>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="p-3 rounded" style="background:#f8f9fa;">
+                                <div class="text-muted" style="font-size:0.72rem;text-transform:uppercase;letter-spacing:.05em;">Availability</div>
+                                <div class="fw-semibold mt-1">@Model.RemainingQuantity of @Model.TotalQuantity left</div>
+                                <div style="height:5px;background:#e9ecef;border-radius:3px;overflow:hidden;margin-top:6px;">
+                                    <div style="height:100%;width:@(Model.TotalQuantity > 0 ? (Model.RemainingQuantity * 100 / Model.TotalQuantity) : 0)%;background:#2D6A4F;border-radius:3px;"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="p-3 rounded" style="background:#f8f9fa;">
+                                <div class="text-muted" style="font-size:0.72rem;text-transform:uppercase;letter-spacing:.05em;">Category</div>
+                                <div class="fw-semibold mt-1">@Model.RestaurantCategory</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    @if (!string.IsNullOrEmpty(Model.AllergenInfo))
+                    {
+                        <div class="alert alert-warning py-2 mb-0" style="font-size:0.85rem;">
+                            ⚠️ <strong>Allergens:</strong> @Model.AllergenInfo
+                        </div>
+                    }
+                </div>
+            </div>
+
+            <!-- Restaurant Info -->
+            <div class="card mt-3" style="border-radius:16px;">
+                <div class="card-body p-4">
+                    <h6 class="fw-bold mb-3">📍 Pickup Location</h6>
+                    <div class="fw-semibold">@Model.RestaurantName</div>
+                    <div class="text-muted">@Model.RestaurantAddress</div>
+                    @if (!string.IsNullOrEmpty(Model.RestaurantPhone))
+                    {
+                        <div class="mt-1 text-muted">📞 @Model.RestaurantPhone</div>
+                    }
+                    @if (!string.IsNullOrEmpty(Model.RestaurantOperatingHours))
+                    {
+                        <div class="mt-1 text-muted">🕐 @Model.RestaurantOperatingHours</div>
+                    }
+                </div>
+            </div>
+        </div>
+
+        <!-- Right: Reserve Box -->
+        <div class="col-lg-5">
+            <div class="card sticky-top" style="top:20px; border-radius:16px; border:2px solid #2D6A4F;">
+                <div class="card-body p-4">
+                    <div class="text-center mb-3">
+                        <div class="fw-bold text-success" style="font-size:2rem;">JD @Model.DiscountedPrice.ToString("N2")</div>
+                        <div>
+                            <small class="text-muted text-decoration-line-through">JD @Model.OriginalPrice.ToString("N2")</small>
+                            <span class="savings-badge ms-2">-@Model.SavingsPercent%</span>
+                        </div>
+                        <div class="text-muted mt-1" style="font-size:0.82rem;">per package</div>
+                    </div>
+
+                    <hr />
+
+                    @if (Model.AlreadyReserved)
+                    {
+                        <div class="text-center py-2">
+                            <div class="text-success fw-bold mb-2">✓ You've reserved this package</div>
+                            <a href="/Reservations/MyReservations" class="btn btn-outline-success w-100">View My Reservations</a>
+                        </div>
+                    }
+                    else if (Model.RemainingQuantity > 0)
+                    {
+                        @if (!User.Identity!.IsAuthenticated)
+                        {
+                            <p class="text-center text-muted small mb-3">Sign in to reserve this package</p>
+                            <a href="/Account/Login?returnUrl=/Packages/Details/@Model.PackageId"
+                               class="btn btn-success w-100 btn-lg">Login to Reserve</a>
+                            <div class="text-center mt-2">
+                                <small class="text-muted">No account? <a href="/Account/RegisterCustomer">Sign up free</a></small>
+                            </div>
+                        }
+                        else if (!User.IsInRole("Customer"))
+                        {
+                            <p class="text-center text-muted small">Only customers can make reservations.</p>
+                        }
+                        else
+                        {
+                            <form asp-controller="Reservations" asp-action="Create" method="post">
+                                @Html.AntiForgeryToken()
+                                <input type="hidden" name="packageId" value="@Model.PackageId" />
+
+                                <div class="mb-3">
+                                    <label class="form-label fw-semibold">Quantity</label>
+                                    <select name="quantity" class="form-select" id="quantitySelect">
+                                        @for (int i = 1; i <= Math.Min(Model.RemainingQuantity, 5); i++)
+                                        {
+                                            <option value="@i">@i</option>
+                                        }
+                                    </select>
+                                </div>
+
+                                <div class="d-flex justify-content-between mb-3 fw-semibold">
+                                    <span>Total</span>
+                                    <span class="text-success" id="totalDisplay">JD @Model.DiscountedPrice.ToString("N2")</span>
+                                </div>
+
+                                <button type="submit" class="btn btn-success w-100 btn-lg fw-semibold">
+                                    Reserve Now
+                                </button>
+                                <p class="text-center text-muted small mt-2 mb-0">
+                                    Show your reservation code at pickup
+                                </p>
+                            </form>
+                        }
+                    }
+                    else
+                    {
+                        <div class="text-center py-2">
+                            <div class="badge bg-secondary px-3 py-2 fs-6">Unavailable</div>
+                            <p class="text-muted small mt-2 mb-0">This package is no longer available.</p>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        var price = @Model.DiscountedPrice;
+        document.getElementById('quantitySelect')?.addEventListener('change', function () {
+            var total = (price * parseInt(this.value)).toFixed(2);
+            document.getElementById('totalDisplay').textContent = 'JD ' + total;
+        });
+    </script>
+}

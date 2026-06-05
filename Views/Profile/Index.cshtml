@@ -1,0 +1,91 @@
+@using LastBiteNew.ViewModels.Customer
+@model CustomerProfileViewModel
+@{
+    ViewData["Title"] = "My Profile";
+}
+
+<div class="container py-4" style="max-width:720px;">
+    <h4 class="fw-bold mb-4">My Profile</h4>
+
+    <div class="row g-4">
+        <!-- Profile details -->
+        <div class="col-12">
+            <div class="card" style="border-radius:14px;">
+                <div class="card-body p-4">
+                    <h6 class="fw-bold mb-3">Account details</h6>
+                    <form asp-controller="Profile" asp-action="UpdateProfile" method="post" enctype="multipart/form-data">
+                        @Html.AntiForgeryToken()
+                        <div asp-validation-summary="ModelOnly" class="alert alert-danger py-2 small"></div>
+
+                        <div class="d-flex align-items-center gap-3 mb-3">
+                            <div style="width:72px; height:72px; border-radius:50%; overflow:hidden; background:#f0f4f0; display:flex; align-items:center; justify-content:center; flex-shrink:0;">
+                                @if (!string.IsNullOrEmpty(Model.ExistingPhotoPath))
+                                {
+                                    <img src="@Model.ExistingPhotoPath" alt="Photo" style="width:100%; height:100%; object-fit:cover;" />
+                                }
+                                else
+                                {
+                                    <span style="font-size:1.8rem;">👤</span>
+                                }
+                            </div>
+                            <div class="flex-grow-1">
+                                <label asp-for="Photo" class="form-label fw-semibold mb-1"></label>
+                                <input asp-for="Photo" class="form-control" type="file" accept="image/*" />
+                                <span asp-validation-for="Photo" class="text-danger small"></span>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="FullName" class="form-label fw-semibold"></label>
+                            <input asp-for="FullName" class="form-control" />
+                            <span asp-validation-for="FullName" class="text-danger small"></span>
+                        </div>
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label asp-for="PhoneNumber" class="form-label fw-semibold"></label>
+                                <input asp-for="PhoneNumber" class="form-control" placeholder="+962 7 0000 0000" />
+                                <span asp-validation-for="PhoneNumber" class="text-danger small"></span>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label fw-semibold">Email</label>
+                                <input class="form-control" value="@Model.Email" disabled />
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-success mt-3">Save Changes</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Change password -->
+        <div class="col-12">
+            <div class="card" style="border-radius:14px;">
+                <div class="card-body p-4">
+                    <h6 class="fw-bold mb-3">Change password</h6>
+                    <form asp-controller="Profile" asp-action="ChangePassword" method="post">
+                        @Html.AntiForgeryToken()
+                        <div class="row g-3">
+                            <div class="col-md-4">
+                                <label class="form-label fw-semibold">Current Password</label>
+                                <input type="password" name="CurrentPassword" class="form-control" />
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label fw-semibold">New Password</label>
+                                <input type="password" name="NewPassword" class="form-control" />
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label fw-semibold">Confirm New</label>
+                                <input type="password" name="ConfirmPassword" class="form-control" />
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-outline-success mt-3">Update Password</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{ await Html.RenderPartialAsync("_ValidationScripts"); }
+}

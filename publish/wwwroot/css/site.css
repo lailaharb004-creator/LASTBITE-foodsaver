@@ -1,0 +1,405 @@
+/* ?? Google Fonts ?? */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Inter:wght@400;500&display=swap');
+
+/* ?? Base ?? */
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: #F8F9FA;
+    color: #2C3E50;
+}
+
+h1, h2, h3, h4, h5, h6, .navbar-brand {
+    font-family: 'Poppins', sans-serif;
+}
+
+/* ?? Primary Green ?? */
+.btn-success {
+    background-color: #2D6A4F;
+    border-color: #2D6A4F;
+}
+
+    .btn-success:hover {
+        background-color: #1B4332;
+        border-color: #1B4332;
+    }
+
+.btn-outline-success {
+    color: #2D6A4F;
+    border-color: #2D6A4F;
+}
+
+    .btn-outline-success:hover {
+        background-color: #2D6A4F;
+        border-color: #2D6A4F;
+    }
+
+.text-success {
+    color: #2D6A4F !important;
+}
+
+.bg-success {
+    background-color: #2D6A4F !important;
+}
+
+.border-success {
+    border-color: #2D6A4F !important;
+}
+
+/* ?? Navbar ?? */
+.navbar {
+    background-color: #FFFFFF !important;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+.navbar-brand {
+    font-weight: 700;
+    font-size: 1.4rem;
+    color: #2D6A4F !important;
+}
+
+.nav-link {
+    color: #2C3E50 !important;
+    font-weight: 500;
+}
+
+    .nav-link:hover {
+        color: #2D6A4F !important;
+    }
+
+/* ?? Cards ?? */
+.card {
+    border: none;
+    border-radius: 12px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+    .card:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 6px 20px rgba(0,0,0,0.12);
+    }
+
+/* ?? Package Card ?? */
+.package-card .card-img-top {
+    height: 160px;
+    object-fit: cover;
+    border-radius: 12px 12px 0 0;
+}
+
+.savings-badge {
+    background-color: #E76F51;
+    color: white;
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 4px 8px;
+    border-radius: 20px;
+}
+
+/* ?? Status Badges ?? */
+.badge-pending {
+    background-color: #F4A261;
+    color: white;
+}
+
+.badge-approved {
+    background-color: #2D6A4F;
+    color: white;
+}
+
+.badge-rejected {
+    background-color: #E63946;
+    color: white;
+}
+
+.badge-suspended {
+    background-color: #6C757D;
+    color: white;
+}
+
+.badge-active {
+    background-color: #2D6A4F;
+    color: white;
+}
+
+.badge-soldout {
+    background-color: #6C757D;
+    color: white;
+}
+
+.badge-expired {
+    background-color: #ADB5BD;
+    color: white;
+}
+
+.badge-cancelled {
+    background-color: #E63946;
+    color: white;
+}
+
+.badge-completed {
+    background-color: #4361EE;
+    color: white;
+}
+
+.badge-noshow {
+    background-color: #495057;
+    color: white;
+}
+
+/* ?? Admin Sidebar ?? */
+.admin-sidebar {
+    width: 240px;
+    min-height: 100vh;
+    background-color: #1B4332;
+    padding: 20px 0;
+    flex-shrink: 0;
+}
+
+    .admin-sidebar .brand {
+        padding: 0 20px 20px;
+        border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .admin-sidebar .nav-link {
+        color: rgba(255,255,255,0.8) !important;
+        padding: 10px 20px;
+        font-size: 0.9rem;
+        border-radius: 0;
+    }
+
+        .admin-sidebar .nav-link:hover {
+            color: #ffffff !important;
+            background-color: rgba(255,255,255,0.1);
+        }
+
+        .admin-sidebar .nav-link.active {
+            color: #ffffff !important;
+            background-color: #2D6A4F;
+        }
+
+/* ?? Restaurant Sidebar ?? */
+.restaurant-sidebar {
+    width: 240px;
+    min-height: 100vh;
+    background-color: #2C3E50;
+    padding: 20px 0;
+    flex-shrink: 0;
+}
+
+    .restaurant-sidebar .nav-link {
+        color: rgba(255,255,255,0.8) !important;
+        padding: 10px 20px;
+        font-size: 0.9rem;
+    }
+
+        .restaurant-sidebar .nav-link:hover {
+            color: #ffffff !important;
+            background-color: rgba(255,255,255,0.1);
+        }
+
+/* ?? KPI Cards ?? */
+.kpi-card {
+    border-radius: 12px;
+    padding: 20px;
+    color: white;
+    border: none;
+}
+
+    .kpi-card .kpi-number {
+        font-size: 2rem;
+        font-weight: 700;
+        font-family: 'Poppins', sans-serif;
+    }
+
+    .kpi-card .kpi-label {
+        font-size: 0.85rem;
+        opacity: 0.85;
+    }
+
+.kpi-green {
+    background: linear-gradient(135deg, #2D6A4F, #52B788);
+}
+
+.kpi-orange {
+    background: linear-gradient(135deg, #E76F51, #F4A261);
+}
+
+.kpi-blue {
+    background: linear-gradient(135deg, #4361EE, #4CC9F0);
+}
+
+.kpi-dark {
+    background: linear-gradient(135deg, #2C3E50, #4A6FA5);
+}
+
+/* ?? Forms ?? */
+.form-control:focus, .form-select:focus {
+    border-color: #52B788;
+    box-shadow: 0 0 0 0.2rem rgba(82,183,136,0.25);
+}
+
+/* ?? Reservation Code ?? */
+.reservation-code {
+    font-family: monospace;
+    font-size: 2rem;
+    font-weight: 700;
+    letter-spacing: 4px;
+    color: #2D6A4F;
+}
+
+/* ?? Impact Section ?? */
+.impact-section {
+    background-color: #D8F3DC;
+    padding: 40px 0;
+}
+
+.impact-number {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #2D6A4F;
+    font-family: 'Poppins', sans-serif;
+}
+
+/* ?? Hero Section ?? */
+.hero-section {
+    background: linear-gradient(135deg, #2D6A4F 0%, #52B788 100%);
+    color: white;
+    padding: 80px 0;
+}
+
+/* ?? Footer ?? */
+footer {
+    background-color: #1B4332;
+    color: rgba(255,255,255,0.8);
+    padding: 30px 0;
+}
+
+/* ?? Orange Button ?? */
+.btn-orange {
+    background-color: #E76F51;
+    border-color: #E76F51;
+    color: white;
+}
+
+    .btn-orange:hover {
+        background-color: #cf5c3f;
+        border-color: #cf5c3f;
+        color: white;
+    }
+
+.btn-outline-orange {
+    color: #E76F51;
+    border-color: #E76F51;
+    background-color: transparent;
+}
+
+    .btn-outline-orange:hover {
+        background-color: #E76F51;
+        border-color: #E76F51;
+        color: white;
+    }
+
+/* ── Mobile Topbar ── */
+.mobile-topbar {
+    display: none;
+    align-items: center;
+    padding: 12px 16px;
+    position: sticky;
+    top: 0;
+    z-index: 200;
+}
+
+.sidebar-toggle-btn {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 1.4rem;
+    line-height: 1;
+    padding: 0;
+    cursor: pointer;
+    margin-right: 12px;
+}
+
+/* ── Sidebar Backdrop ── */
+.sidebar-backdrop {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1040;
+    cursor: pointer;
+}
+
+.sidebar-backdrop.show {
+    display: block;
+}
+
+/* ── Responsive Breakpoints ── */
+@media (max-width: 767.98px) {
+
+    .mobile-topbar {
+        display: flex;
+    }
+
+    /* Slide sidebar off-canvas on mobile */
+    .admin-sidebar,
+    .restaurant-sidebar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 100vh;
+        min-height: 100vh;
+        transform: translateX(-100%);
+        transition: transform 0.28s ease-in-out;
+        z-index: 1045;
+        overflow-y: auto;
+    }
+
+    .admin-sidebar.sidebar-open,
+    .restaurant-sidebar.sidebar-open {
+        transform: translateX(0);
+        box-shadow: 4px 0 24px rgba(0, 0, 0, 0.35);
+    }
+
+    /* Main content takes full width when sidebar is off-canvas */
+    .dashboard-wrapper {
+        flex-direction: column;
+    }
+
+    .dashboard-main {
+        padding: 1rem !important;
+        overflow-x: auto !important; /* allow horizontal scroll, not hidden */
+    }
+
+    /* KPI cards: 2 per row on small screens */
+    .kpi-card .kpi-number {
+        font-size: 1.5rem;
+    }
+}
+
+/* ── Table horizontal scroll ── */
+/* Card bodies that contain tables scroll horizontally on any screen size */
+.dashboard-main .card-body {
+    overflow-x: auto;
+}
+
+/* Ensure tables never shrink below a readable minimum */
+.dashboard-main .table {
+    min-width: 540px;
+}
+
+@media (max-width: 575.98px) {
+    /* KPI cards: 1 per row on very small screens */
+    .kpi-card .kpi-number {
+        font-size: 1.25rem;
+    }
+
+    .dashboard-main {
+        padding: 0.75rem !important;
+    }
+
+    /* Shrink table text on tiny screens */
+    .table {
+        font-size: 0.82rem;
+    }
+}

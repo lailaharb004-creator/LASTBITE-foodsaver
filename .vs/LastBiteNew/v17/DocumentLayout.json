@@ -1,0 +1,357 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Projects\\LastBiteNew\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{0BE8702D-5408-4B5B-9E37-D235C46A6844}|LastBiteNew.csproj|c:\\projects\\lastbitenew\\controllers\\restaurantscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0BE8702D-5408-4B5B-9E37-D235C46A6844}|LastBiteNew.csproj|solutionrelative:controllers\\restaurantscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0BE8702D-5408-4B5B-9E37-D235C46A6844}|LastBiteNew.csproj|c:\\projects\\lastbitenew\\views\\notifications\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{0BE8702D-5408-4B5B-9E37-D235C46A6844}|LastBiteNew.csproj|solutionrelative:views\\notifications\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0BE8702D-5408-4B5B-9E37-D235C46A6844}|LastBiteNew.csproj|c:\\projects\\lastbitenew\\views\\shared\\_loginpartial.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{0BE8702D-5408-4B5B-9E37-D235C46A6844}|LastBiteNew.csproj|solutionrelative:views\\shared\\_loginpartial.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0BE8702D-5408-4B5B-9E37-D235C46A6844}|LastBiteNew.csproj|c:\\projects\\lastbitenew\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0BE8702D-5408-4B5B-9E37-D235C46A6844}|LastBiteNew.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0BE8702D-5408-4B5B-9E37-D235C46A6844}|LastBiteNew.csproj|c:\\projects\\lastbitenew\\data\\seeddata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0BE8702D-5408-4B5B-9E37-D235C46A6844}|LastBiteNew.csproj|solutionrelative:data\\seeddata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\laila\\OneDrive\\Desktop\\LastBiteNew\\Data\\Migrations\\20260603165508_InitialCreate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0BE8702D-5408-4B5B-9E37-D235C46A6844}|LastBiteNew.csproj|c:\\projects\\lastbitenew\\data\\applicationdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0BE8702D-5408-4B5B-9E37-D235C46A6844}|LastBiteNew.csproj|solutionrelative:data\\applicationdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\laila\\OneDrive\\Desktop\\LastBiteNew\\Data\\Migrations\\20260603165223_InitialCreate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0BE8702D-5408-4B5B-9E37-D235C46A6844}|LastBiteNew.csproj|c:\\projects\\lastbitenew\\models\\review.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0BE8702D-5408-4B5B-9E37-D235C46A6844}|LastBiteNew.csproj|solutionrelative:models\\review.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0BE8702D-5408-4B5B-9E37-D235C46A6844}|LastBiteNew.csproj|c:\\projects\\lastbitenew\\models\\restaurantstatus.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0BE8702D-5408-4B5B-9E37-D235C46A6844}|LastBiteNew.csproj|solutionrelative:models\\restaurantstatus.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0BE8702D-5408-4B5B-9E37-D235C46A6844}|LastBiteNew.csproj|c:\\projects\\lastbitenew\\models\\restaurantcategory.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0BE8702D-5408-4B5B-9E37-D235C46A6844}|LastBiteNew.csproj|solutionrelative:models\\restaurantcategory.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0BE8702D-5408-4B5B-9E37-D235C46A6844}|LastBiteNew.csproj|c:\\projects\\lastbitenew\\models\\restaurant.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0BE8702D-5408-4B5B-9E37-D235C46A6844}|LastBiteNew.csproj|solutionrelative:models\\restaurant.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0BE8702D-5408-4B5B-9E37-D235C46A6844}|LastBiteNew.csproj|c:\\projects\\lastbitenew\\models\\reservationstatus.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0BE8702D-5408-4B5B-9E37-D235C46A6844}|LastBiteNew.csproj|solutionrelative:models\\reservationstatus.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0BE8702D-5408-4B5B-9E37-D235C46A6844}|LastBiteNew.csproj|c:\\projects\\lastbitenew\\models\\reservation.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0BE8702D-5408-4B5B-9E37-D235C46A6844}|LastBiteNew.csproj|solutionrelative:models\\reservation.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0BE8702D-5408-4B5B-9E37-D235C46A6844}|LastBiteNew.csproj|c:\\projects\\lastbitenew\\models\\packagestatus.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0BE8702D-5408-4B5B-9E37-D235C46A6844}|LastBiteNew.csproj|solutionrelative:models\\packagestatus.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0BE8702D-5408-4B5B-9E37-D235C46A6844}|LastBiteNew.csproj|c:\\projects\\lastbitenew\\models\\notificationtype.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0BE8702D-5408-4B5B-9E37-D235C46A6844}|LastBiteNew.csproj|solutionrelative:models\\notificationtype.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0BE8702D-5408-4B5B-9E37-D235C46A6844}|LastBiteNew.csproj|c:\\projects\\lastbitenew\\models\\notification.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0BE8702D-5408-4B5B-9E37-D235C46A6844}|LastBiteNew.csproj|solutionrelative:models\\notification.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0BE8702D-5408-4B5B-9E37-D235C46A6844}|LastBiteNew.csproj|c:\\projects\\lastbitenew\\models\\foodtype.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0BE8702D-5408-4B5B-9E37-D235C46A6844}|LastBiteNew.csproj|solutionrelative:models\\foodtype.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0BE8702D-5408-4B5B-9E37-D235C46A6844}|LastBiteNew.csproj|c:\\projects\\lastbitenew\\models\\foodpackage.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0BE8702D-5408-4B5B-9E37-D235C46A6844}|LastBiteNew.csproj|solutionrelative:models\\foodpackage.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0BE8702D-5408-4B5B-9E37-D235C46A6844}|LastBiteNew.csproj|c:\\projects\\lastbitenew\\models\\applicationuser.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0BE8702D-5408-4B5B-9E37-D235C46A6844}|LastBiteNew.csproj|solutionrelative:models\\applicationuser.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0BE8702D-5408-4B5B-9E37-D235C46A6844}|LastBiteNew.csproj|c:\\projects\\lastbitenew\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{0BE8702D-5408-4B5B-9E37-D235C46A6844}|LastBiteNew.csproj|solutionrelative:appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "RestaurantsController.cs",
+              "DocumentMoniker": "C:\\Projects\\LastBiteNew\\Controllers\\RestaurantsController.cs",
+              "RelativeDocumentMoniker": "Controllers\\RestaurantsController.cs",
+              "ToolTip": "C:\\Projects\\LastBiteNew\\Controllers\\RestaurantsController.cs",
+              "RelativeToolTip": "Controllers\\RestaurantsController.cs",
+              "ViewState": "AgIAABAAAAAAAAAAAAAQwBUAAAAdAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-05T20:04:35.058Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "C:\\Projects\\LastBiteNew\\Views\\Notifications\\Index.cshtml",
+              "RelativeDocumentMoniker": "Views\\Notifications\\Index.cshtml",
+              "ToolTip": "C:\\Projects\\LastBiteNew\\Views\\Notifications\\Index.cshtml",
+              "RelativeToolTip": "Views\\Notifications\\Index.cshtml",
+              "ViewState": "AgIAABIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-06-05T20:04:18.206Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "_LoginPartial.cshtml",
+              "DocumentMoniker": "C:\\Projects\\LastBiteNew\\Views\\Shared\\_LoginPartial.cshtml",
+              "RelativeDocumentMoniker": "Views\\Shared\\_LoginPartial.cshtml",
+              "ToolTip": "C:\\Projects\\LastBiteNew\\Views\\Shared\\_LoginPartial.cshtml",
+              "RelativeToolTip": "Views\\Shared\\_LoginPartial.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABgAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-06-03T17:01:31.778Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "SeedData.cs",
+              "DocumentMoniker": "C:\\Projects\\LastBiteNew\\Data\\SeedData.cs",
+              "RelativeDocumentMoniker": "Data\\SeedData.cs",
+              "ToolTip": "C:\\Projects\\LastBiteNew\\Data\\SeedData.cs",
+              "RelativeToolTip": "Data\\SeedData.cs",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAswCcAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-03T16:56:52.667Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "20260603165508_InitialCreate.cs",
+              "DocumentMoniker": "C:\\Users\\laila\\OneDrive\\Desktop\\LastBiteNew\\Data\\Migrations\\20260603165508_InitialCreate.cs",
+              "RelativeDocumentMoniker": "..\\..\\Users\\laila\\OneDrive\\Desktop\\LastBiteNew\\Data\\Migrations\\20260603165508_InitialCreate.cs",
+              "ToolTip": "C:\\Users\\laila\\OneDrive\\Desktop\\LastBiteNew\\Data\\Migrations\\20260603165508_InitialCreate.cs",
+              "RelativeToolTip": "..\\..\\Users\\laila\\OneDrive\\Desktop\\LastBiteNew\\Data\\Migrations\\20260603165508_InitialCreate.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAABFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-03T16:55:08.278Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "20260603165223_InitialCreate.cs",
+              "DocumentMoniker": "C:\\Users\\laila\\OneDrive\\Desktop\\LastBiteNew\\Data\\Migrations\\20260603165223_InitialCreate.cs",
+              "RelativeDocumentMoniker": "..\\..\\Users\\laila\\OneDrive\\Desktop\\LastBiteNew\\Data\\Migrations\\20260603165223_InitialCreate.cs",
+              "ToolTip": "C:\\Users\\laila\\OneDrive\\Desktop\\LastBiteNew\\Data\\Migrations\\20260603165223_InitialCreate.cs",
+              "RelativeToolTip": "..\\..\\Users\\laila\\OneDrive\\Desktop\\LastBiteNew\\Data\\Migrations\\20260603165223_InitialCreate.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-03T16:52:23.518Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "Restaurant.cs",
+              "DocumentMoniker": "C:\\Projects\\LastBiteNew\\Models\\Restaurant.cs",
+              "RelativeDocumentMoniker": "Models\\Restaurant.cs",
+              "ToolTip": "C:\\Projects\\LastBiteNew\\Models\\Restaurant.cs",
+              "RelativeToolTip": "Models\\Restaurant.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAANAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-03T16:30:52.991Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Projects\\LastBiteNew\\Program.cs",
+              "RelativeDocumentMoniker": "Program.cs",
+              "ToolTip": "C:\\Projects\\LastBiteNew\\Program.cs",
+              "RelativeToolTip": "Program.cs",
+              "ViewState": "AgIAACEAAAAAAAAAAAAAAD4AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-03T15:59:44.792Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "RestaurantCategory.cs",
+              "DocumentMoniker": "C:\\Projects\\LastBiteNew\\Models\\RestaurantCategory.cs",
+              "RelativeDocumentMoniker": "Models\\RestaurantCategory.cs",
+              "ToolTip": "C:\\Projects\\LastBiteNew\\Models\\RestaurantCategory.cs",
+              "RelativeToolTip": "Models\\RestaurantCategory.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-03T16:32:09.729Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "ApplicationDbContext.cs",
+              "DocumentMoniker": "C:\\Projects\\LastBiteNew\\Data\\ApplicationDbContext.cs",
+              "RelativeDocumentMoniker": "Data\\ApplicationDbContext.cs",
+              "ToolTip": "C:\\Projects\\LastBiteNew\\Data\\ApplicationDbContext.cs",
+              "RelativeToolTip": "Data\\ApplicationDbContext.cs",
+              "ViewState": "AgIAADoAAAAAAAAAAAAswFcAAAAvAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-03T16:26:32.465Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "ReservationStatus.cs",
+              "DocumentMoniker": "C:\\Projects\\LastBiteNew\\Models\\ReservationStatus.cs",
+              "RelativeDocumentMoniker": "Models\\ReservationStatus.cs",
+              "ToolTip": "C:\\Projects\\LastBiteNew\\Models\\ReservationStatus.cs",
+              "RelativeToolTip": "Models\\ReservationStatus.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-03T16:36:07.491Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "RestaurantStatus.cs",
+              "DocumentMoniker": "C:\\Projects\\LastBiteNew\\Models\\RestaurantStatus.cs",
+              "RelativeDocumentMoniker": "Models\\RestaurantStatus.cs",
+              "ToolTip": "C:\\Projects\\LastBiteNew\\Models\\RestaurantStatus.cs",
+              "RelativeToolTip": "Models\\RestaurantStatus.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-03T16:32:55.911Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "Review.cs",
+              "DocumentMoniker": "C:\\Projects\\LastBiteNew\\Models\\Review.cs",
+              "RelativeDocumentMoniker": "Models\\Review.cs",
+              "ToolTip": "C:\\Projects\\LastBiteNew\\Models\\Review.cs",
+              "RelativeToolTip": "Models\\Review.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAANAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-03T16:36:49.931Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "Reservation.cs",
+              "DocumentMoniker": "C:\\Projects\\LastBiteNew\\Models\\Reservation.cs",
+              "RelativeDocumentMoniker": "Models\\Reservation.cs",
+              "ToolTip": "C:\\Projects\\LastBiteNew\\Models\\Reservation.cs",
+              "RelativeToolTip": "Models\\Reservation.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAANAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-03T16:35:40.689Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "PackageStatus.cs",
+              "DocumentMoniker": "C:\\Projects\\LastBiteNew\\Models\\PackageStatus.cs",
+              "RelativeDocumentMoniker": "Models\\PackageStatus.cs",
+              "ToolTip": "C:\\Projects\\LastBiteNew\\Models\\PackageStatus.cs",
+              "RelativeToolTip": "Models\\PackageStatus.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-03T16:34:42.326Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "NotificationType.cs",
+              "DocumentMoniker": "C:\\Projects\\LastBiteNew\\Models\\NotificationType.cs",
+              "RelativeDocumentMoniker": "Models\\NotificationType.cs",
+              "ToolTip": "C:\\Projects\\LastBiteNew\\Models\\NotificationType.cs",
+              "RelativeToolTip": "Models\\NotificationType.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-03T16:38:04.341Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 16,
+              "Title": "Notification.cs",
+              "DocumentMoniker": "C:\\Projects\\LastBiteNew\\Models\\Notification.cs",
+              "RelativeDocumentMoniker": "Models\\Notification.cs",
+              "ToolTip": "C:\\Projects\\LastBiteNew\\Models\\Notification.cs",
+              "RelativeToolTip": "Models\\Notification.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAANAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-03T16:37:30.73Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 17,
+              "Title": "FoodType.cs",
+              "DocumentMoniker": "C:\\Projects\\LastBiteNew\\Models\\FoodType.cs",
+              "RelativeDocumentMoniker": "Models\\FoodType.cs",
+              "ToolTip": "C:\\Projects\\LastBiteNew\\Models\\FoodType.cs",
+              "RelativeToolTip": "Models\\FoodType.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAABTAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-03T16:35:15.676Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 18,
+              "Title": "FoodPackage.cs",
+              "DocumentMoniker": "C:\\Projects\\LastBiteNew\\Models\\FoodPackage.cs",
+              "RelativeDocumentMoniker": "Models\\FoodPackage.cs",
+              "ToolTip": "C:\\Projects\\LastBiteNew\\Models\\FoodPackage.cs",
+              "RelativeToolTip": "Models\\FoodPackage.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAANAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-03T16:33:46.139Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 19,
+              "Title": "ApplicationUser.cs",
+              "DocumentMoniker": "C:\\Projects\\LastBiteNew\\Models\\ApplicationUser.cs",
+              "RelativeDocumentMoniker": "Models\\ApplicationUser.cs",
+              "ToolTip": "C:\\Projects\\LastBiteNew\\Models\\ApplicationUser.cs",
+              "RelativeToolTip": "Models\\ApplicationUser.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-03T16:27:50.56Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 20,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "C:\\Projects\\LastBiteNew\\appsettings.json",
+              "RelativeDocumentMoniker": "appsettings.json",
+              "ToolTip": "C:\\Projects\\LastBiteNew\\appsettings.json",
+              "RelativeToolTip": "appsettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2026-06-03T16:26:27.585Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

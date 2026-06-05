@@ -1,0 +1,271 @@
+@using LastBiteNew.ViewModels.Customer
+@model HomeViewModel
+@{
+    ViewData["Title"] = "Last Bite — Rescue Food, Save Money";
+}
+
+<!-- Hero -->
+<div style="background:linear-gradient(135deg,#1B4332 0%,#2D6A4F 55%,#40916C 100%); padding:70px 0 60px; overflow:hidden;">
+    <div class="container">
+        <div class="row align-items-center g-5">
+
+            <!-- Left: Text -->
+            <div class="col-lg-6 text-white">
+                <div class="d-inline-block mb-3 px-3 py-1 rounded-pill"
+                     style="background:rgba(255,255,255,0.15); font-size:0.82rem; letter-spacing:.04em;">
+                    🌿 Fighting Food Waste in Jordan
+                </div>
+                <h1 class="fw-bold mb-3" style="font-size:clamp(2rem,4vw,3rem); line-height:1.2;">
+                    Rescue Food.<br>Save Money.<br>
+                    <span style="color:#95D5B2;">Help the Planet.</span>
+                </h1>
+                <p class="mb-5" style="font-size:1.05rem; opacity:.9; max-width:440px; line-height:1.7;">
+                    Pick up surplus food from local restaurants and bakeries at up to
+                    <strong style="color:#FFD166;">70% off</strong> — before it goes to waste.
+                </p>
+                <div class="d-flex flex-wrap gap-3">
+                    <a href="/Packages" class="btn btn-warning btn-lg fw-semibold px-4"
+                       style="border-radius:10px;">
+                        Browse Packages →
+                    </a>
+                    <a href="/Account/RegisterCustomer" class="btn btn-outline-light btn-lg px-4"
+                       style="border-radius:10px;">
+                        Sign Up Free
+                    </a>
+                </div>
+                <!-- Trust stats -->
+                <div class="d-flex flex-wrap gap-4 mt-5" style="font-size:0.85rem; opacity:.8;">
+                    <div>🏪 <strong style="opacity:1;">Local restaurants</strong></div>
+                    <div>💚 <strong style="opacity:1;">Fresh daily</strong></div>
+                    <div>✅ <strong style="opacity:1;">No hidden fees</strong></div>
+                </div>
+            </div>
+
+            <!-- Right: Hero Image -->
+            <div class="col-lg-6 d-flex justify-content-center align-items-center">
+                <div style="position:relative; width:100%; max-width:520px;">
+
+                    <!-- Floating top badge -->
+                    <div style="position:absolute; top:-14px; left:16px; z-index:3;
+                                background:#FFD166; color:#1B4332;
+                                font-size:0.78rem; font-weight:700; padding:7px 16px;
+                                border-radius:20px; box-shadow:0 4px 14px rgba(0,0,0,0.25);
+                                white-space:nowrap;">
+                        🔥 New packages added daily
+                    </div>
+
+                    <!-- Photo -->
+                    <img src="/uploads/brooke-lark-HlNcigvUi4Q-unsplash.jpg"
+                         alt="Fresh food ready to be rescued"
+                         style="width:100%; height:380px; object-fit:cover;
+                                border-radius:20px;
+                                box-shadow:0 24px 60px rgba(0,0,0,0.35);" />
+
+                    <!-- Dark gradient overlay so badges are readable -->
+                    <div style="position:absolute; inset:0; border-radius:20px;
+                                background:linear-gradient(to bottom,
+                                    rgba(0,0,0,0) 40%,
+                                    rgba(0,0,0,0.45) 100%);"></div>
+
+                    <!-- Bottom-left: savings pill on photo -->
+                    <div style="position:absolute; bottom:16px; left:16px; z-index:3;
+                                background:rgba(255,255,255,0.95); border-radius:14px;
+                                padding:10px 14px; box-shadow:0 4px 16px rgba(0,0,0,0.2);
+                                display:flex; align-items:center; gap:10px;">
+                        <div>
+                            <div style="font-size:0.7rem; color:#888; font-weight:500;">Today's saving</div>
+                            <div style="font-size:1rem; font-weight:800; color:#2D6A4F;">Up to 70% off</div>
+                        </div>
+                        <div style="background:linear-gradient(135deg,#E76F51,#F4A261);
+                                    color:white; font-size:0.85rem; font-weight:700;
+                                    padding:6px 12px; border-radius:10px;">
+                            -70%
+                        </div>
+                    </div>
+
+                    <!-- Bottom-right: reservation code badge -->
+                    <div style="position:absolute; bottom:16px; right:16px; z-index:3;
+                                background:rgba(255,255,255,0.95); border-radius:14px;
+                                padding:10px 14px; box-shadow:0 4px 16px rgba(0,0,0,0.2);
+                                font-size:0.75rem; text-align:center;">
+                        <div style="color:#888; font-size:0.68rem; margin-bottom:3px;">Reservation code</div>
+                        <div style="font-family:monospace; font-weight:800; font-size:0.95rem;
+                                    color:#2D6A4F; letter-spacing:2px;">LB-4X8K2P</div>
+                        <div style="color:#2D6A4F; font-weight:600; font-size:0.72rem;">✓ Confirmed</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@if (Model.FeaturedPackages.Any())
+{
+    <!-- Featured Packages slider -->
+    <div class="container py-5">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <div>
+                <h2 class="fw-bold mb-1">Featured Packages</h2>
+                <p class="text-muted mb-0">Fresh rescues available right now</p>
+            </div>
+            <a href="/Packages" class="btn btn-outline-success">View all →</a>
+        </div>
+
+        <div id="featuredCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="4500">
+            <div class="carousel-inner pb-2">
+                @for (int i = 0; i < Model.FeaturedPackages.Count; i++)
+                {
+                    var p = Model.FeaturedPackages[i];
+                    <div class="carousel-item @(i == 0 ? "active" : "")">
+                        <div class="row justify-content-center">
+                            <div class="col-md-8 col-lg-6">
+                                <div class="card border-0 shadow-sm" style="border-radius:18px; overflow:hidden;">
+                                    @if (!string.IsNullOrEmpty(p.ImagePath))
+                                    {
+                                        <div style="height:220px; background:url('@p.ImagePath') center/cover;"></div>
+                                    }
+                                    else
+                                    {
+                                        <div style="height:220px; background:@PackageVisual.Gradient(p.FoodType); display:flex; align-items:center; justify-content:center;">
+                                            <span style="font-size:5rem;">@PackageVisual.Icon(p.FoodType)</span>
+                                        </div>
+                                    }
+                                    <div class="card-body p-4">
+                                        <div class="d-flex justify-content-between align-items-start mb-2">
+                                            <div>
+                                                <h5 class="fw-bold mb-1">@p.PackageName</h5>
+                                                <div class="text-muted small">🏪 @p.RestaurantName · @p.City</div>
+                                            </div>
+                                            <span class="savings-badge">-@p.SavingsPercent%</span>
+                                        </div>
+                                        <div class="d-flex align-items-baseline gap-2 mb-3">
+                                            <span class="fw-bold text-success" style="font-size:1.5rem;">JD @p.DiscountedPrice.ToString("N2")</span>
+                                            <small class="text-muted text-decoration-line-through">JD @p.OriginalPrice.ToString("N2")</small>
+                                        </div>
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <small class="text-muted">⏰ @p.PickupStartTime.ToString("MMM d, HH:mm") – @p.PickupEndTime.ToString("HH:mm")</small>
+                                            <a href="/Packages/Details/@p.PackageId" class="btn btn-orange btn-sm">View &amp; Reserve</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+
+            @if (Model.FeaturedPackages.Count > 1)
+            {
+                <button class="carousel-control-prev" type="button" data-bs-target="#featuredCarousel" data-bs-slide="prev" style="width:60px;">
+                    <span aria-hidden="true" style="display:flex;align-items:center;justify-content:center;width:42px;height:42px;border-radius:50%;background:#2D6A4F;color:#fff;font-size:1.4rem;">‹</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#featuredCarousel" data-bs-slide="next" style="width:60px;">
+                    <span aria-hidden="true" style="display:flex;align-items:center;justify-content:center;width:42px;height:42px;border-radius:50%;background:#2D6A4F;color:#fff;font-size:1.4rem;">›</span>
+                </button>
+                <div class="carousel-indicators" style="bottom:-36px;">
+                    @for (int i = 0; i < Model.FeaturedPackages.Count; i++)
+                    {
+                        <button type="button" data-bs-target="#featuredCarousel" data-bs-slide-to="@i"
+                                class="@(i == 0 ? "active" : "")" style="background-color:#2D6A4F;width:10px;height:10px;border-radius:50%;"></button>
+                    }
+                </div>
+            }
+        </div>
+    </div>
+}
+
+<!-- Live impact stats -->
+<div style="background:#f0f9f4; padding:44px 0;">
+    <div class="container">
+        <div class="row text-center g-4">
+            <div class="col-4">
+                <div class="impact-number">@Model.ActivePackagesCount</div>
+                <div class="text-muted small">Packages available now</div>
+            </div>
+            <div class="col-4">
+                <div class="impact-number">@Model.RestaurantsCount</div>
+                <div class="text-muted small">Partner restaurants</div>
+            </div>
+            <div class="col-4">
+                <div class="impact-number">@Model.MealsRescued</div>
+                <div class="text-muted small">Meals rescued</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- How it works -->
+<div class="container py-5" id="how-it-works">
+    <h2 class="fw-bold text-center mb-2">How It Works</h2>
+    <p class="text-center text-muted mb-5">Three simple steps to rescue your first meal</p>
+    <div class="row g-4 text-center">
+        <div class="col-md-4">
+            <div class="card h-100 border-0" style="background:#f0f9f4; border-radius:16px;">
+                <div class="card-body py-4 px-3">
+                    <div style="font-size:2.8rem; margin-bottom:12px;">🔍</div>
+                    <h5 class="fw-bold mb-2">1. Browse</h5>
+                    <p class="text-muted mb-0">Find surplus food packages from verified local restaurants near you, at up to 70% off.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card h-100 border-0" style="background:#f0f9f4; border-radius:16px;">
+                <div class="card-body py-4 px-3">
+                    <div style="font-size:2.8rem; margin-bottom:12px;">📲</div>
+                    <h5 class="fw-bold mb-2">2. Reserve</h5>
+                    <p class="text-muted mb-0">Reserve in seconds and receive a unique pickup code — no upfront payment required.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card h-100 border-0" style="background:#f0f9f4; border-radius:16px;">
+                <div class="card-body py-4 px-3">
+                    <div style="font-size:2.8rem; margin-bottom:12px;">🛍️</div>
+                    <h5 class="fw-bold mb-2">3. Pick Up</h5>
+                    <p class="text-muted mb-0">Show your code at the restaurant, pay the discounted price, and enjoy guilt-free food!</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Testimonials -->
+<div class="container py-5">
+    <h2 class="fw-bold text-center mb-2">What People Say</h2>
+    <p class="text-center text-muted mb-5">Loved by customers and restaurants across Jordan</p>
+    <div class="row g-4">
+        @{
+            (string quote, string name, string role)[] testimonials = new[]
+            {
+                ("I grabbed a bakery box for a third of the price — fresh and delicious. I use Last Bite every week now!", "Sara H.", "Customer, Amman"),
+                ("We turned our end-of-day surplus into real revenue instead of waste. Setup took minutes.", "Tariq's Kitchen", "Restaurant Partner"),
+                ("Such a simple idea done well. Reserve, show the code, pick up. Saving money and helping the planet.", "Omar K.", "Customer, Irbid")
+            };
+        }
+        @foreach (var t in testimonials)
+        {
+            <div class="col-md-4">
+                <div class="card h-100 border-0 shadow-sm" style="border-radius:16px;">
+                    <div class="card-body p-4">
+                        <div style="color:#F4A261; letter-spacing:2px; font-size:1.1rem;">★★★★★</div>
+                        <p class="text-muted mt-2 mb-3">“@t.quote”</p>
+                        <div class="fw-bold">@t.name</div>
+                        <small class="text-muted">@t.role</small>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+<!-- CTA -->
+<div style="background:#f0f9f4; padding:60px 0;">
+    <div class="container text-center">
+        <div style="font-size:2.5rem; margin-bottom:12px;">🌍</div>
+        <h3 class="fw-bold mb-2">Ready to rescue your first meal?</h3>
+        <p class="text-muted mb-4">New packages added daily from restaurants across Jordan.</p>
+        <a href="/Packages" class="btn btn-success btn-lg px-5 fw-semibold" style="border-radius:10px;">
+            See Today's Packages
+        </a>
+    </div>
+</div>

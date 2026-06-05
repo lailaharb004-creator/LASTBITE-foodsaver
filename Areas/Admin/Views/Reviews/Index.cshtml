@@ -1,0 +1,61 @@
+@using LastBiteNew.ViewModels.Admin
+@model List<AdminReviewRowViewModel>
+@{
+    ViewData["Title"] = "Reviews";
+    Layout = "_AdminLayout";
+    string Stars(int n) => string.Concat(Enumerable.Repeat("★", n)) + string.Concat(Enumerable.Repeat("☆", 5 - n));
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h4 class="fw-bold mb-0">Reviews</h4>
+    <span class="text-muted small">@Model.Count review@(Model.Count != 1 ? "s" : "")</span>
+</div>
+
+@if (!Model.Any())
+{
+    <div class="card"><div class="card-body text-center py-5 text-muted">No reviews yet.</div></div>
+}
+else
+{
+    <div class="card">
+        <div class="card-body p-0">
+            <table class="table table-hover align-middle mb-0">
+                <thead class="table-light">
+                    <tr>
+                        <th class="ps-4">Restaurant</th>
+                        <th>Customer</th>
+                        <th>Rating</th>
+                        <th>Comment</th>
+                        <th>Date</th>
+                        <th class="pe-4">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var r in Model)
+                    {
+                        <tr class="@(r.IsVisible ? "" : "table-secondary")">
+                            <td class="ps-4 fw-semibold">@r.RestaurantName</td>
+                            <td>@r.CustomerName</td>
+                            <td style="color:#F4A261; letter-spacing:1px;">@Stars(r.Rating)</td>
+                            <td style="max-width:280px;"><small class="text-muted">@(string.IsNullOrWhiteSpace(r.Comment) ? "—" : r.Comment)</small></td>
+                            <td><small>@r.CreatedAt.ToString("MMM d, yyyy")</small></td>
+                            <td class="pe-4">
+                                <form asp-area="Admin" asp-controller="Reviews" asp-action="ToggleVisibility" asp-route-id="@r.ReviewId" method="post" class="d-inline">
+                                    @Html.AntiForgeryToken()
+                                    @if (r.IsVisible)
+                                    {
+                                        <button type="submit" class="btn btn-sm btn-outline-danger">Hide</button>
+                                    }
+                                    else
+                                    {
+                                        <button type="submit" class="btn btn-sm btn-outline-success">Show</button>
+                                    }
+                                </form>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+}

@@ -1,0 +1,232 @@
+@using LastBiteNew.ViewModels.Customer
+@model PackageFilterViewModel
+@{
+    ViewData["Title"] = "Browse Packages";
+    bool hasFilters = !string.IsNullOrEmpty(Model.Search) || !string.IsNullOrEmpty(Model.SelectedCity)
+        || !string.IsNullOrEmpty(Model.SelectedCategory) || !string.IsNullOrEmpty(Model.SelectedFoodType)
+        || Model.MaxPrice.HasValue || !string.IsNullOrEmpty(Model.SelectedPickup) || !string.IsNullOrEmpty(Model.SelectedSort);
+}
+
+<!-- Hero -->
+<div class="hero-section" style="padding:44px 0;">
+    <div class="container text-center">
+        <h2 class="text-white fw-bold mb-1">Rescue Food. Save Money.</h2>
+        <p class="mb-0" style="color:rgba(255,255,255,0.9);">Pick up surplus food from local restaurants at up to 70% off.</p>
+    </div>
+</div>
+
+<div class="container py-4">
+    <div class="row g-4">
+
+        <!-- ===== Filter sidebar ===== -->
+        <aside class="col-lg-3">
+            <form method="get" action="/Packages" class="filter-panel">
+
+                <div class="filter-head d-flex justify-content-between align-items-center mb-3">
+                    <h6 class="fw-bold mb-0">Filters</h6>
+                    @if (hasFilters)
+                    {
+                        <a href="/Packages" class="small text-decoration-none text-danger">Clear all</a>
+                    }
+                </div>
+
+                <!-- Keyword -->
+                <div class="mb-3">
+                    <label class="filter-label">Search</label>
+                    <div class="input-group search-pill">
+                        <span class="input-group-text bg-white border-0 text-success">🔍</span>
+                        <input type="text" name="search" value="@Model.Search"
+                               class="form-control border-0 ps-1" placeholder="Package or restaurant" style="box-shadow:none;" />
+                    </div>
+                </div>
+
+                <!-- City -->
+                <div class="mb-3">
+                    <label class="filter-label">📍 City</label>
+                    <select name="city" class="form-select">
+                        <option value="">All Cities</option>
+                        @foreach (var c in Model.Cities)
+                        {
+                            <option value="@c" selected="@(Model.SelectedCity == c)">@c</option>
+                        }
+                    </select>
+                </div>
+
+                <!-- Restaurant Category -->
+                <div class="mb-3">
+                    <label class="filter-label">🏪 Restaurant type</label>
+                    <select name="category" class="form-select">
+                        <option value="">All Types</option>
+                        <option value="Restaurant"  selected="@(Model.SelectedCategory == "Restaurant")">Restaurant</option>
+                        <option value="Bakery"      selected="@(Model.SelectedCategory == "Bakery")">Bakery</option>
+                        <option value="Cafe"        selected="@(Model.SelectedCategory == "Cafe")">Cafe</option>
+                        <option value="Supermarket" selected="@(Model.SelectedCategory == "Supermarket")">Supermarket</option>
+                        <option value="FoodStore"   selected="@(Model.SelectedCategory == "FoodStore")">Food Store</option>
+                    </select>
+                </div>
+
+                <!-- Food type -->
+                <div class="mb-3">
+                    <label class="filter-label">🍽️ Food type</label>
+                    <select name="foodType" class="form-select">
+                        <option value="">All Food Types</option>
+                        <option value="Mixed"        selected="@(Model.SelectedFoodType == "Mixed")">Mixed</option>
+                        <option value="Vegan"        selected="@(Model.SelectedFoodType == "Vegan")">Vegan</option>
+                        <option value="Vegetarian"   selected="@(Model.SelectedFoodType == "Vegetarian")">Vegetarian</option>
+                        <option value="ContainsMeat" selected="@(Model.SelectedFoodType == "ContainsMeat")">Contains Meat</option>
+                    </select>
+                </div>
+
+                <!-- Pickup time -->
+                <div class="mb-3">
+                    <label class="filter-label">⏰ Pickup time</label>
+                    <select name="pickup" class="form-select">
+                        <option value="">Any time</option>
+                        <option value="now"      selected="@(Model.SelectedPickup == "now")">Available now</option>
+                        <option value="today"    selected="@(Model.SelectedPickup == "today")">Today</option>
+                        <option value="tomorrow" selected="@(Model.SelectedPickup == "tomorrow")">Tomorrow</option>
+                        <option value="week"     selected="@(Model.SelectedPickup == "week")">This week</option>
+                    </select>
+                </div>
+
+                <!-- Price -->
+                <div class="mb-3">
+                    <label class="filter-label d-flex justify-content-between">
+                        <span>💰 Max price</span>
+                        <span class="text-success fw-bold">JD <span id="priceVal">@((Model.MaxPrice ?? Model.PriceCeiling).ToString("N0"))</span></span>
+                    </label>
+                    <input type="range" name="maxPrice" min="0" max="@Model.PriceCeiling" step="1"
+                           value="@(Model.MaxPrice ?? Model.PriceCeiling)"
+                           class="form-range price-range"
+                           oninput="document.getElementById('priceVal').textContent = this.value;" />
+                </div>
+
+                <!-- Sort -->
+                <div class="mb-4">
+                    <label class="filter-label">↕️ Sort by</label>
+                    <select name="sort" class="form-select">
+                        <option value=""        selected="@(string.IsNullOrEmpty(Model.SelectedSort))">Soonest pickup</option>
+                        <option value="price"   selected="@(Model.SelectedSort == "price")">Lowest price</option>
+                        <option value="savings" selected="@(Model.SelectedSort == "savings")">Biggest discount</option>
+                        <option value="rating"  selected="@(Model.SelectedSort == "rating")">Top rated</option>
+                    </select>
+                </div>
+
+                <button type="submit" class="btn btn-orange w-100 fw-semibold">Apply Filters</button>
+            </form>
+        </aside>
+
+        <!-- ===== Results ===== -->
+        <div class="col-lg-9">
+
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <span class="fw-semibold">@Model.Packages.Count package@(Model.Packages.Count != 1 ? "s" : "") found</span>
+            </div>
+
+            @if (!Model.Packages.Any())
+            {
+                <div class="text-center py-5 text-muted">
+                    <div style="font-size:4rem;">🍽️</div>
+                    <h5 class="mt-3 mb-1">No packages found</h5>
+                    <p class="small">Try adjusting your filters or check back later — new packages are added daily.</p>
+                    <a href="/Packages" class="btn btn-success mt-2">View All Packages</a>
+                </div>
+            }
+            else
+            {
+                <div class="row g-3">
+                    @foreach (var p in Model.Packages)
+                    {
+                        <div class="col-12 col-md-6 col-xl-4">
+                            <div class="card h-100" style="border-radius:14px; overflow:hidden; transition:transform .2s,box-shadow .2s; box-shadow:0 2px 12px rgba(0,0,0,0.08);"
+                                 onmouseover="this.style.transform='translateY(-4px)';this.style.boxShadow='0 8px 24px rgba(0,0,0,0.13)'"
+                                 onmouseout="this.style.transform='';this.style.boxShadow='0 2px 12px rgba(0,0,0,0.08)'">
+
+                                @if (!string.IsNullOrEmpty(p.ImagePath))
+                                {
+                                    <div style="height:140px; background:url('@p.ImagePath') center/cover;"></div>
+                                }
+                                else
+                                {
+                                    <div style="height:140px; background:@PackageVisual.Gradient(p.FoodType); display:flex; align-items:center; justify-content:center;">
+                                        <span style="font-size:3.4rem;">@PackageVisual.Icon(p.FoodType)</span>
+                                    </div>
+                                }
+
+                                <div class="position-relative" style="background:#f0f4f0; padding:16px 20px 12px;">
+                                    <div class="d-flex justify-content-between align-items-start">
+                                        <div>
+                                            <div class="fw-bold" style="font-size:1.05rem; color:#1B4332;">@p.PackageName</div>
+                                            <div class="mt-1" style="font-size:0.82rem; color:#555;">
+                                                🏪 @p.RestaurantName · @p.City
+                                            </div>
+                                        </div>
+                                        <span class="savings-badge ms-2 flex-shrink-0">-@p.SavingsPercent%</span>
+                                    </div>
+                                    <div class="mt-2 d-flex gap-2 flex-wrap">
+                                        <span class="badge" style="background:#e8f5e9;color:#2D6A4F;font-size:0.72rem;">@p.FoodType</span>
+                                        @if (p.IsUrgent)
+                                        {
+                                            <span class="badge bg-danger" style="font-size:0.72rem;">🔥 Only @p.RemainingQuantity left</span>
+                                        }
+                                        @if (p.IsPickupToday)
+                                        {
+                                            <span class="badge bg-warning text-dark" style="font-size:0.72rem;">Today</span>
+                                        }
+                                        @if (p.AlreadyReserved)
+                                        {
+                                            <span class="badge bg-success" style="font-size:0.72rem;">✓ Reserved</span>
+                                        }
+                                    </div>
+                                </div>
+
+                                <div class="card-body d-flex flex-column px-3 py-3">
+                                    <div class="d-flex align-items-baseline gap-2 mb-2">
+                                        <span class="fw-bold text-success" style="font-size:1.3rem;">JD @p.DiscountedPrice.ToString("N2")</span>
+                                        <small class="text-muted text-decoration-line-through">JD @p.OriginalPrice.ToString("N2")</small>
+                                    </div>
+
+                                    <div class="mb-2" style="font-size:0.83rem; color:#555;">
+                                        ⏰ @p.PickupStartTime.ToString("MMM d, HH:mm") – @p.PickupEndTime.ToString("HH:mm")
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <div class="d-flex justify-content-between mb-1" style="font-size:0.78rem; color:#777;">
+                                            <span>Availability</span>
+                                            <span>@p.RemainingQuantity of @p.TotalQuantity left</span>
+                                        </div>
+                                        <div style="height:5px;background:#e9ecef;border-radius:3px;overflow:hidden;">
+                                            <div style="height:100%;width:@(p.TotalQuantity > 0 ? (p.RemainingQuantity * 100 / p.TotalQuantity) : 0)%;background:#2D6A4F;border-radius:3px;"></div>
+                                        </div>
+                                    </div>
+
+                                    <a href="/Packages/Details/@p.PackageId"
+                                       class="btn @(p.AlreadyReserved ? "btn-outline-success" : "btn-success") btn-sm mt-auto">
+                                        @(p.AlreadyReserved ? "✓ Already Reserved" : "View & Reserve")
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+
+                @if (Model.TotalPages > 1)
+                {
+                    <nav class="mt-4">
+                        <ul class="pagination justify-content-center">
+                            @for (int pg = 1; pg <= Model.TotalPages; pg++)
+                            {
+                                <li class="page-item @(pg == Model.Page ? "active" : "")">
+                                    <a class="page-link" href="@Url.Action("Index", new {
+                                        search = Model.Search, city = Model.SelectedCity, category = Model.SelectedCategory,
+                                        foodType = Model.SelectedFoodType, maxPrice = Model.MaxPrice,
+                                        pickup = Model.SelectedPickup, sort = Model.SelectedSort, page = pg })">@pg</a>
+                                </li>
+                            }
+                        </ul>
+                    </nav>
+                }
+            }
+        </div>
+    </div>
+</div>

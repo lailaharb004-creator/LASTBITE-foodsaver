@@ -1,0 +1,122 @@
+@using LastBiteNew.ViewModels.Account
+@model AuthViewModel
+@{
+    ViewData["Title"] = "Login or Register";
+    var active = string.IsNullOrEmpty(Model?.ActiveTab) ? "login" : Model.ActiveTab;
+}
+
+<div class="auth-wrap">
+    <div class="auth-card">
+
+        <!-- Left: image side -->
+        <div class="auth-visual">
+            <div class="auth-logo">🌿 Last Bite</div>
+            <div>
+                <h1>Rescue food.<br />Save money.</h1>
+                <p class="auth-lead">Join Last Bite to grab delicious surplus meals from local restaurants — up to 70% off.</p>
+                <div class="auth-feature"><span class="auth-feature-icon">🍽️</span> Great food for less</div>
+                <div class="auth-feature"><span class="auth-feature-icon">📍</span> Restaurants near you</div>
+                <div class="auth-feature"><span class="auth-feature-icon">🌍</span> Less waste, every day</div>
+            </div>
+        </div>
+
+        <!-- Right: form side -->
+        <div class="auth-pane">
+
+            <div class="auth-tabs">
+                <button type="button" class="auth-tab @(active == "login" ? "active" : "")" data-tab="login">Login</button>
+                <button type="button" class="auth-tab @(active == "register" ? "active" : "")" data-tab="register">Register</button>
+            </div>
+
+            <!-- Login panel -->
+            <div class="auth-panel @(active == "login" ? "active" : "")" id="panel-login">
+                <div class="auth-head">
+                    <h2>Welcome back</h2>
+                    <p class="auth-sub">Log in to your account.</p>
+                </div>
+                <form asp-action="Login" method="post">
+                    @Html.AntiForgeryToken()
+                    <div asp-validation-summary="ModelOnly" class="alert alert-danger py-2 small"></div>
+
+                    <div class="mb-3">
+                        <label asp-for="Login.Email" class="form-label">Email</label>
+                        <input asp-for="Login.Email" class="form-control" placeholder="you@email.com" />
+                        <span asp-validation-for="Login.Email" class="text-danger small"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label asp-for="Login.Password" class="form-label">Password</label>
+                        <input asp-for="Login.Password" class="form-control" placeholder="••••••••" />
+                        <span asp-validation-for="Login.Password" class="text-danger small"></span>
+                    </div>
+                    <div class="mb-3 form-check">
+                        <input asp-for="Login.RememberMe" class="form-check-input" />
+                        <label asp-for="Login.RememberMe" class="form-check-label small">Remember me</label>
+                    </div>
+                    <button type="submit" class="btn btn-orange btn-submit">Login</button>
+                </form>
+            </div>
+
+            <!-- Register panel -->
+            <div class="auth-panel @(active == "register" ? "active" : "")" id="panel-register">
+                <div class="auth-head">
+                    <h2>Create account</h2>
+                    <p class="auth-sub">Join in under a minute.</p>
+                </div>
+                <form asp-action="RegisterCustomer" method="post">
+                    @Html.AntiForgeryToken()
+                    <div asp-validation-summary="ModelOnly" class="alert alert-danger py-2 small"></div>
+
+                    <div class="mb-3">
+                        <label asp-for="Register.FullName" class="form-label">Full Name</label>
+                        <input asp-for="Register.FullName" class="form-control" placeholder="John Doe" />
+                        <span asp-validation-for="Register.FullName" class="text-danger small"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label asp-for="Register.Email" class="form-label">Email</label>
+                        <input asp-for="Register.Email" class="form-control" placeholder="john@email.com" />
+                        <span asp-validation-for="Register.Email" class="text-danger small"></span>
+                    </div>
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <label asp-for="Register.Password" class="form-label">Password</label>
+                            <input asp-for="Register.Password" class="form-control" placeholder="••••••••" />
+                            <span asp-validation-for="Register.Password" class="text-danger small"></span>
+                        </div>
+                        <div class="col-md-6">
+                            <label asp-for="Register.ConfirmPassword" class="form-label">Confirm Password</label>
+                            <input asp-for="Register.ConfirmPassword" class="form-control" placeholder="••••••••" />
+                            <span asp-validation-for="Register.ConfirmPassword" class="text-danger small"></span>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-orange btn-submit mt-4">Register</button>
+                </form>
+            </div>
+
+            <div class="auth-divider">or</div>
+            <p class="auth-switch">Own a restaurant? <a asp-action="RegisterRestaurant">List your restaurant</a></p>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScripts");
+    }
+    <script>
+        (function () {
+            function show(tab) {
+                document.querySelectorAll('.auth-tab').forEach(function (t) {
+                    t.classList.toggle('active', t.dataset.tab === tab);
+                });
+                document.querySelectorAll('.auth-panel').forEach(function (p) {
+                    p.classList.remove('active');
+                });
+                var panel = document.getElementById('panel-' + tab);
+                if (panel) { void panel.offsetWidth; panel.classList.add('active'); }
+            }
+            document.querySelectorAll('.auth-tab').forEach(function (t) {
+                t.addEventListener('click', function () { show(this.dataset.tab); });
+            });
+        })();
+    </script>
+}

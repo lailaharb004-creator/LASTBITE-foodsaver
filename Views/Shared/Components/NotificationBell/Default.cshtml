@@ -1,0 +1,46 @@
+@using LastBiteNew.Models
+@model List<Notification>
+@{
+    int unread = ViewBag.UnreadCount ?? 0;
+}
+
+<div class="dropdown">
+    <button class="btn position-relative p-1" type="button" data-bs-toggle="dropdown" aria-expanded="false"
+            style="background:none; border:none; font-size:1.25rem; line-height:1;">
+        🔔
+        @if (unread > 0)
+        {
+            <span class="position-absolute translate-middle badge rounded-pill bg-danger"
+                  style="top:2px; left:90%; font-size:0.58rem;">@(unread > 9 ? "9+" : unread.ToString())</span>
+        }
+    </button>
+    <div class="dropdown-menu dropdown-menu-end shadow border-0"
+         style="width:330px; max-height:430px; overflow-y:auto; border-radius:14px;">
+        <div class="dropdown-header fw-bold d-flex justify-content-between align-items-center">
+            <span>Notifications</span>
+            <a href="/Notifications" class="small text-decoration-none">See all</a>
+        </div>
+        @if (!Model.Any())
+        {
+            <div class="px-3 py-4 text-muted small text-center">No notifications yet</div>
+        }
+        else
+        {
+            foreach (var n in Model)
+            {
+                <a href="/Notifications" class="dropdown-item py-2 @(n.IsRead ? "" : "fw-semibold")"
+                   style="white-space:normal; @(n.IsRead ? "" : "background:#f3f9f5;")">
+                    <div class="d-flex justify-content-between align-items-start">
+                        <span style="font-size:0.88rem;">@n.Title</span>
+                        @if (!n.IsRead)
+                        {
+                            <span class="text-danger ms-2" style="font-size:0.6rem;">●</span>
+                        }
+                    </div>
+                    <div class="text-muted" style="font-size:0.8rem;">@n.Message</div>
+                    <div class="text-muted" style="font-size:0.7rem;">@n.CreatedAt.ToLocalTime().ToString("MMM d, HH:mm")</div>
+                </a>
+            }
+        }
+    </div>
+</div>

@@ -1,0 +1,108 @@
+@{
+    ViewData["Title"] = "How It Works";
+}
+
+<div class="hero-section" style="padding:56px 0;">
+    <div class="container text-center">
+        <h1 class="text-white fw-bold mb-2">How Last Bite Works</h1>
+        <p class="mb-0" style="color:rgba(255,255,255,0.9); max-width:620px; margin:0 auto;">
+            We connect local food businesses with people who want great food for less — rescuing surplus meals before they go to waste.
+        </p>
+    </div>
+</div>
+
+<div class="container py-5">
+    <!-- Mission -->
+    <div class="text-center mb-5" style="max-width:760px; margin:0 auto;">
+        <h3 class="fw-bold mb-2">Our Mission</h3>
+        <p class="text-muted">
+            Every day, restaurants, bakeries and cafes have good food left unsold. Last Bite turns that surplus into
+            affordable meals for customers and extra revenue for businesses — cutting food waste across Jordan.
+        </p>
+    </div>
+
+    <!-- For customers -->
+    <h4 class="fw-bold mb-3">For Customers</h4>
+    <div class="row g-4 mb-5">
+        @{
+            (string icon, string title, string text)[] cust = new[]
+            {
+                ("🔍","1. Browse","Find discounted surplus packages from approved restaurants near you."),
+                ("📲","2. Reserve","Reserve in seconds and get a unique pickup code — no payment upfront."),
+                ("🛍️","3. Pick Up","Show your code at the restaurant and pay the discounted price."),
+                ("⭐","4. Review","Rate your experience to help others discover great food.")
+            };
+        }
+        @foreach (var c in cust)
+        {
+            <div class="col-md-3 col-sm-6">
+                <div class="card h-100 border-0 text-center" style="background:#f0f9f4; border-radius:16px;">
+                    <div class="card-body py-4">
+                        <div style="font-size:2.4rem;">@c.icon</div>
+                        <h6 class="fw-bold mt-2 mb-1">@c.title</h6>
+                        <p class="text-muted small mb-0">@c.text</p>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+
+    <!-- For restaurants -->
+    <h4 class="fw-bold mb-3">For Restaurants</h4>
+    <div class="row g-4 mb-5">
+        @{
+            (string icon, string title, string text)[] rest = new[]
+            {
+                ("📝","1. Register","Sign up and submit your business for a quick admin review."),
+                ("📦","2. Publish","List surplus food packages with a price, quantity and pickup window."),
+                ("✅","3. Accept","Customers reserve; you confirm pickups with their code."),
+                ("📈","4. Earn","Recover revenue from food that would otherwise be wasted.")
+            };
+        }
+        @foreach (var r in rest)
+        {
+            <div class="col-md-3 col-sm-6">
+                <div class="card h-100 border-0 text-center" style="background:#fff7f2; border-radius:16px;">
+                    <div class="card-body py-4">
+                        <div style="font-size:2.4rem;">@r.icon</div>
+                        <h6 class="fw-bold mt-2 mb-1">@r.title</h6>
+                        <p class="text-muted small mb-0">@r.text</p>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+
+    <!-- FAQ -->
+    <h4 class="fw-bold mb-3">Frequently Asked Questions</h4>
+    <div class="accordion" id="faq">
+        @{
+            (string q, string a)[] faqs = new[]
+            {
+                ("How much can I save?","Packages are typically discounted up to 70% off the original price."),
+                ("Do I pay online?","No — you pay the discounted price directly at the restaurant during pickup."),
+                ("What if I can't collect my order?","You can cancel up to 1 hour before the pickup window starts."),
+                ("Is the food safe?","Yes — it's fresh, unsold surplus offered before it would be discarded.")
+            };
+            int i = 0;
+        }
+        @foreach (var f in faqs)
+        {
+            i++;
+            <div class="accordion-item">
+                <h2 class="accordion-header">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq@i">
+                        @f.q
+                    </button>
+                </h2>
+                <div id="faq@i" class="accordion-collapse collapse" data-bs-parent="#faq">
+                    <div class="accordion-body text-muted">@f.a</div>
+                </div>
+            </div>
+        }
+    </div>
+
+    <div class="text-center mt-5">
+        <a href="/Packages" class="btn btn-success btn-lg px-5 fw-semibold">Browse Packages</a>
+    </div>
+</div>

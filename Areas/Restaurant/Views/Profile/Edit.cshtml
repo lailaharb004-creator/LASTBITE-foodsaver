@@ -1,0 +1,107 @@
+@model RestaurantProfileEditViewModel
+@{
+    ViewData["Title"] = "My Profile";
+    Layout = "_RestaurantLayout";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h4 class="fw-bold mb-0">Restaurant Profile</h4>
+    <a href="/Restaurants/@Model.RestaurantId" class="btn btn-outline-secondary btn-sm" target="_blank">View public profile ↗</a>
+</div>
+
+@if (Model.Status != RestaurantStatus.Approved)
+{
+    <div class="alert alert-warning small">
+        Your restaurant is <strong>@Model.Status</strong>. Your public profile is visible only once approved.
+    </div>
+}
+
+<div class="card">
+    <div class="card-body">
+        <form asp-area="Restaurant" asp-controller="Profile" asp-action="Edit" method="post" enctype="multipart/form-data">
+            @Html.AntiForgeryToken()
+            <input type="hidden" asp-for="RestaurantId" />
+            <div asp-validation-summary="ModelOnly" class="alert alert-danger py-2 small"></div>
+
+            <!-- Images -->
+            <div class="row g-3 mb-1">
+                <div class="col-md-4">
+                    <label asp-for="LogoImage" class="form-label fw-semibold"></label>
+                    <div class="mb-2" style="width:96px; height:96px; border-radius:14px; overflow:hidden; background:#f0f4f0; display:flex; align-items:center; justify-content:center;">
+                        @if (!string.IsNullOrEmpty(Model.ExistingLogoPath))
+                        {
+                            <img src="@Model.ExistingLogoPath" alt="Logo" style="width:100%; height:100%; object-fit:cover;" />
+                        }
+                        else
+                        {
+                            <span style="font-size:2.2rem;">🏪</span>
+                        }
+                    </div>
+                    <input asp-for="LogoImage" class="form-control" type="file" accept="image/*" />
+                    <span asp-validation-for="LogoImage" class="text-danger small"></span>
+                </div>
+                <div class="col-md-8">
+                    <label asp-for="CoverImage" class="form-label fw-semibold"></label>
+                    <div class="mb-2" style="height:96px; border-radius:14px; overflow:hidden;
+                        @(string.IsNullOrEmpty(Model.ExistingCoverPath)
+                            ? "background:linear-gradient(135deg,#1B4332,#52B788);"
+                            : $"background:url('{Model.ExistingCoverPath}') center/cover;")">
+                    </div>
+                    <input asp-for="CoverImage" class="form-control" type="file" accept="image/*" />
+                    <span asp-validation-for="CoverImage" class="text-danger small"></span>
+                </div>
+            </div>
+
+            <hr class="my-4" />
+
+            <div class="row g-3">
+                <div class="col-md-6">
+                    <label asp-for="Name" class="form-label fw-semibold"></label>
+                    <input asp-for="Name" class="form-control" />
+                    <span asp-validation-for="Name" class="text-danger small"></span>
+                </div>
+                <div class="col-md-6">
+                    <label asp-for="Category" class="form-label fw-semibold"></label>
+                    <select asp-for="Category" class="form-select"
+                            asp-items="Html.GetEnumSelectList<RestaurantCategory>()"></select>
+                    <span asp-validation-for="Category" class="text-danger small"></span>
+                </div>
+                <div class="col-md-6">
+                    <label asp-for="PhoneNumber" class="form-label fw-semibold"></label>
+                    <input asp-for="PhoneNumber" class="form-control" />
+                    <span asp-validation-for="PhoneNumber" class="text-danger small"></span>
+                </div>
+                <div class="col-md-6">
+                    <label asp-for="City" class="form-label fw-semibold"></label>
+                    <input asp-for="City" class="form-control" />
+                    <span asp-validation-for="City" class="text-danger small"></span>
+                </div>
+                <div class="col-12">
+                    <label asp-for="Address" class="form-label fw-semibold"></label>
+                    <input asp-for="Address" class="form-control" />
+                    <span asp-validation-for="Address" class="text-danger small"></span>
+                </div>
+                <div class="col-12">
+                    <label asp-for="OperatingHours" class="form-label fw-semibold"></label>
+                    <input asp-for="OperatingHours" class="form-control" placeholder="e.g. Mon–Sat 9:00–22:00" />
+                    <span asp-validation-for="OperatingHours" class="text-danger small"></span>
+                </div>
+                <div class="col-12">
+                    <label asp-for="Description" class="form-label fw-semibold"></label>
+                    <textarea asp-for="Description" class="form-control" rows="4"
+                              placeholder="Tell customers about your restaurant..."></textarea>
+                    <span asp-validation-for="Description" class="text-danger small"></span>
+                </div>
+            </div>
+
+            <div class="mt-4 d-flex gap-2">
+                <button type="submit" class="btn btn-success">Save Changes</button>
+                <a href="/Restaurant/Dashboard/Index" class="btn btn-outline-secondary">Cancel</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScripts" />
+}

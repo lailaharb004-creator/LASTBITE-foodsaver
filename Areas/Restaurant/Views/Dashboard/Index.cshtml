@@ -1,0 +1,201 @@
+@model OwnerDashboardViewModel
+@{
+    ViewData["Title"] = "Dashboard";
+    Layout = "_RestaurantLayout";
+
+    string StatusColor(ReservationStatus s) => s switch
+    {
+        ReservationStatus.Completed             => "#2D6A4F",
+        ReservationStatus.Pending               => "#F4A261",
+        ReservationStatus.NoShow                => "#6c757d",
+        ReservationStatus.CancelledByCustomer   => "#E63946",
+        ReservationStatus.CancelledByRestaurant => "#E63946",
+        _                                       => "#6c757d"
+    };
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+        <h4 class="fw-bold mb-0">@Model.Restaurant.Name</h4>
+        <small class="text-muted">@Model.Restaurant.Category — @Model.Restaurant.City</small>
+    </div>
+    <small class="text-muted d-none d-sm-block">@DateTime.Now.ToString("dddd, MMMM d yyyy")</small>
+</div>
+
+@* ── Status Banners ── *@
+@if (Model.Restaurant.Status == RestaurantStatus.Pending)
+{
+    <div class="card border-0 mb-4" style="background:linear-gradient(135deg,#F4A261,#E76F51);color:white;">
+        <div class="card-body py-4">
+            <h5 class="fw-bold mb-1">⏳ Application Under Review</h5>
+            <p class="mb-0">Your restaurant is waiting for admin approval. You'll be able to add packages and receive reservations once approved.</p>
+        </div>
+    </div>
+}
+@if (Model.Restaurant.Status == RestaurantStatus.Rejected)
+{
+    <div class="card border-0 mb-4" style="background:linear-gradient(135deg,#E63946,#c1121f);color:white;">
+        <div class="card-body py-4">
+            <h5 class="fw-bold mb-1">❌ Application Rejected</h5>
+            @if (!string.IsNullOrEmpty(Model.Restaurant.RejectionReason))
+            {
+                <p class="mb-1"><strong>Reason:</strong> @Model.Restaurant.RejectionReason</p>
+            }
+            <p class="mb-0 mt-2" style="opacity:0.85;font-size:0.9rem;">Please contact support if you believe this was a mistake.</p>
+        </div>
+    </div>
+}
+@if (Model.Restaurant.Status == RestaurantStatus.Suspended)
+{
+    <div class="card border-0 mb-4" style="background:linear-gradient(135deg,#495057,#6C757D);color:white;">
+        <div class="card-body py-4">
+            <h5 class="fw-bold mb-1">🚫 Restaurant Suspended</h5>
+            <p class="mb-0">Your restaurant has been suspended. All active packages have been cancelled. Please contact support to resolve this.</p>
+        </div>
+    </div>
+}
+
+@* ── Approved: full dashboard ── *@
+@if (Model.Restaurant.Status == RestaurantStatus.Approved)
+{
+    <!-- KPI Cards — 2 per row on mobile, 4 on desktop -->
+    <div class="row g-3 mb-4">
+        <div class="col-6 col-md-3">
+            <div class="kpi-card kpi-green">
+                <div class="kpi-number">@Model.ActivePackages</div>
+                <div class="kpi-label">Active Packages</div>
+            </div>
+        </div>
+        <div class="col-6 col-md-3">
+            <div class="kpi-card kpi-blue">
+                <div class="kpi-number">@Model.TotalReservations</div>
+                <div class="kpi-label">Total Reservations</div>
+            </div>
+        </div>
+        <div class="col-6 col-md-3">
+            <div class="kpi-card kpi-orange">
+                <div class="kpi-number" style="font-size:1.4rem;">JD @Model.TotalRevenue.ToString("N2")</div>
+                <div class="kpi-label">Revenue Earned</div>
+            </div>
+        </div>
+        <div class="col-6 col-md-3">
+            <div class="kpi-card kpi-dark">
+                <div class="kpi-number">@Model.MealsSaved</div>
+                <div class="kpi-label">Meals Rescued</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row g-3 mb-4">
+        <div class="col-6 col-md-3">
+            <div class="kpi-card kpi-green">
+                <div class="kpi-number">@Model.TotalPackages</div>
+                <div class="kpi-label">Total Packages</div>
+            </div>
+        </div>
+        <div class="col-6 col-md-3">
+            <div class="kpi-card kpi-blue">
+                <div class="kpi-number">@Model.CompletedReservations</div>
+                <div class="kpi-label">Completed Pickups</div>
+            </div>
+        </div>
+        <div class="col-6 col-md-3">
+            <div class="kpi-card kpi-orange">
+                <div class="kpi-number">⭐ @Model.Restaurant.AverageRating.ToString("F1")</div>
+                <div class="kpi-label">Average Rating</div>
+            </div>
+        </div>
+        <div class="col-6 col-md-3">
+            <div class="kpi-card kpi-dark">
+                <div class="kpi-number">@Model.Restaurant.TotalReviews</div>
+                <div class="kpi-label">Total Reviews</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Quick Actions -->
+    <div class="d-flex flex-wrap gap-2 mb-4">
+        <a href="/Restaurant/Packages/Create" class="btn btn-success btn-sm">+ Add Package</a>
+        <a href="/Restaurant/Reservations/Index" class="btn btn-outline-secondary btn-sm">View All Reservations</a>
+    </div>
+
+    <!-- Recent Reservations -->
+    <div class="card">
+        <div class="card-header d-flex justify-content-between align-items-center">
+            <h6 class="mb-0 fw-semibold">Recent Reservations</h6>
+            @if (Model.RecentReservations.Any())
+            {
+                <a href="/Restaurant/Reservations/Index" class="btn btn-sm btn-outline-secondary">View All</a>
+            }
+        </div>
+
+        @if (!Model.RecentReservations.Any())
+        {
+            <div class="card-body text-center py-5 text-muted">
+                <div style="font-size:2.5rem;">📦</div>
+                <p class="mt-2 mb-1 fw-semibold">No reservations yet</p>
+                <p class="small">Add your first package to start receiving reservations.</p>
+                <a href="/Restaurant/Packages/Create" class="btn btn-success btn-sm mt-1">+ Add Package</a>
+            </div>
+        }
+        else
+        {
+            <!-- Desktop table -->
+            <div class="card-body p-0 d-none d-md-block">
+                <table class="table table-hover align-middle mb-0">
+                    <thead>
+                        <tr style="background:#f0f4f0;border-bottom:2px solid #dee2e6;">
+                            <th class="ps-4 py-3" style="color:#2D6A4F;font-size:0.78rem;text-transform:uppercase;letter-spacing:.05em;">Code</th>
+                            <th class="py-3"       style="color:#2D6A4F;font-size:0.78rem;text-transform:uppercase;letter-spacing:.05em;">Customer</th>
+                            <th class="py-3"       style="color:#2D6A4F;font-size:0.78rem;text-transform:uppercase;letter-spacing:.05em;">Package</th>
+                            <th class="py-3"       style="color:#2D6A4F;font-size:0.78rem;text-transform:uppercase;letter-spacing:.05em;">Qty</th>
+                            <th class="py-3"       style="color:#2D6A4F;font-size:0.78rem;text-transform:uppercase;letter-spacing:.05em;">Total</th>
+                            <th class="py-3"       style="color:#2D6A4F;font-size:0.78rem;text-transform:uppercase;letter-spacing:.05em;">Status</th>
+                            <th class="py-3 pe-4"  style="color:#2D6A4F;font-size:0.78rem;text-transform:uppercase;letter-spacing:.05em;">Date</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var r in Model.RecentReservations)
+                        {
+                            <tr style="border-left:3px solid @StatusColor(r.Status);">
+                                <td class="ps-4 py-3">
+                                    <code class="fw-semibold" style="color:#2D6A4F;">@r.ReservationCode</code>
+                                </td>
+                                <td class="py-3 fw-semibold">@r.CustomerName</td>
+                                <td class="py-3">@r.PackageName</td>
+                                <td class="py-3 fw-semibold">@r.Quantity</td>
+                                <td class="py-3 fw-semibold text-success">JD @r.TotalPrice.ToString("N2")</td>
+                                <td class="py-3">
+                                    <span class="badge badge-@r.Status.ToString().ToLower() px-2 py-1">@r.Status</span>
+                                </td>
+                                <td class="py-3 pe-4">
+                                    <small class="text-muted">@r.ReservedAt.ToString("MMM d, yyyy")</small>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Mobile cards -->
+            <div class="d-md-none p-3">
+                @foreach (var r in Model.RecentReservations)
+                {
+                    <div class="d-flex justify-content-between align-items-start py-3"
+                         style="border-left:3px solid @StatusColor(r.Status); padding-left:12px !important; @(r != Model.RecentReservations.Last() ? "border-bottom:1px solid #f0f0f0;" : "")">
+                        <div>
+                            <code class="fw-bold" style="color:#2D6A4F;">@r.ReservationCode</code>
+                            <div class="fw-semibold mt-1">@r.CustomerName</div>
+                            <small class="text-muted">@r.PackageName · @r.Quantity item@(r.Quantity != 1 ? "s" : "")</small>
+                        </div>
+                        <div class="text-end ms-2">
+                            <div class="fw-bold text-success">JD @r.TotalPrice.ToString("N2")</div>
+                            <span class="badge badge-@r.Status.ToString().ToLower() mt-1">@r.Status</span>
+                            <div><small class="text-muted">@r.ReservedAt.ToString("MMM d")</small></div>
+                        </div>
+                    </div>
+                }
+            </div>
+        }
+    </div>
+}

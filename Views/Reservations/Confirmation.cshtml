@@ -1,0 +1,73 @@
+@using LastBiteNew.ViewModels.Customer
+@model ReservationConfirmViewModel
+@{
+    ViewData["Title"] = "Reservation Confirmed";
+}
+
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-7 col-lg-6">
+
+            <!-- Success Header -->
+            <div class="text-center mb-4">
+                <div style="font-size:4rem;">✅</div>
+                <h3 class="fw-bold mt-2 mb-1">Reservation Confirmed!</h3>
+                <p class="text-muted">Show this code at pickup. No payment needed now.</p>
+            </div>
+
+            <!-- Code Card -->
+            <div class="card mb-4" style="border:2px solid #2D6A4F; border-radius:16px; overflow:hidden;">
+                <div style="background:linear-gradient(135deg,#2D6A4F,#52B788); padding:28px; text-align:center;">
+                    <div class="text-white mb-1" style="font-size:0.8rem; letter-spacing:.1em; text-transform:uppercase; opacity:.8;">Your Reservation Code</div>
+                    <div class="reservation-code text-white" style="font-size:2.4rem; letter-spacing:6px; font-family:monospace; font-weight:700;">
+                        @Model.ReservationCode
+                    </div>
+                </div>
+                <div class="card-body p-4">
+                    <div class="row g-3">
+                        <div class="col-12">
+                            <div class="text-muted" style="font-size:0.72rem;text-transform:uppercase;letter-spacing:.05em;">Package</div>
+                            <div class="fw-semibold">@Model.PackageName</div>
+                        </div>
+                        <div class="col-12">
+                            <div class="text-muted" style="font-size:0.72rem;text-transform:uppercase;letter-spacing:.05em;">Restaurant</div>
+                            <div class="fw-semibold">@Model.RestaurantName</div>
+                            <div class="text-muted small">@Model.RestaurantAddress</div>
+                        </div>
+                        <div class="col-6">
+                            <div class="text-muted" style="font-size:0.72rem;text-transform:uppercase;letter-spacing:.05em;">Pickup Window</div>
+                            <div class="fw-semibold" style="font-size:0.875rem;">@Model.PickupStartTime.ToString("MMM d")</div>
+                            <div class="text-muted small">@Model.PickupStartTime.ToString("HH:mm") – @Model.PickupEndTime.ToString("HH:mm")</div>
+                        </div>
+                        <div class="col-3">
+                            <div class="text-muted" style="font-size:0.72rem;text-transform:uppercase;letter-spacing:.05em;">Qty</div>
+                            <div class="fw-semibold">@Model.Quantity</div>
+                        </div>
+                        <div class="col-3">
+                            <div class="text-muted" style="font-size:0.72rem;text-transform:uppercase;letter-spacing:.05em;">Total</div>
+                            <div class="fw-bold text-success">JD @Model.TotalPrice.ToString("N2")</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Instructions -->
+            <div class="card mb-4" style="border-radius:14px; background:#f0f9f4; border:none;">
+                <div class="card-body p-4">
+                    <h6 class="fw-bold mb-3">📋 What to do next</h6>
+                    <ol class="mb-0" style="font-size:0.9rem; line-height:1.9;">
+                        <li>Go to <strong>@Model.RestaurantName</strong> during the pickup window.</li>
+                        <li>Show your code <strong>@Model.ReservationCode</strong> to the staff.</li>
+                        <li>Pay <strong>JD @Model.TotalPrice.ToString("N2")</strong> directly at the restaurant.</li>
+                        <li>Enjoy your rescued food! 🌿</li>
+                    </ol>
+                </div>
+            </div>
+
+            <div class="d-flex gap-2">
+                <a href="/Reservations/MyReservations" class="btn btn-outline-success flex-grow-1">My Reservations</a>
+                <a href="/Packages" class="btn btn-success flex-grow-1">Browse More</a>
+            </div>
+        </div>
+    </div>
+</div>

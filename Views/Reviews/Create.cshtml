@@ -1,0 +1,81 @@
+@using LastBiteNew.ViewModels.Customer
+@model ReviewViewModel
+@{
+    ViewData["Title"] = "Leave a Review";
+}
+
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-7 col-lg-6">
+            <div class="card" style="border-radius:18px;">
+                <div class="card-body p-4 p-md-5">
+
+                    <div class="text-center mb-4">
+                        <div style="font-size:2.6rem;">⭐</div>
+                        <h4 class="fw-bold mb-1">Rate your experience</h4>
+                        <p class="text-muted mb-0">@Model.PackageName · <strong>@Model.RestaurantName</strong></p>
+                    </div>
+
+                    <form action="/Reviews/Create" method="post">
+                        @Html.AntiForgeryToken()
+                        <input type="hidden" asp-for="ReservationId" />
+                        <div asp-validation-summary="ModelOnly" class="alert alert-danger py-2 small"></div>
+
+                        <!-- Star rating -->
+                        <div class="text-center mb-3">
+                            <div class="star-input" id="starInput">
+                                @for (int s = 1; s <= 5; s++)
+                                {
+                                    <span class="star" data-val="@s" role="button" aria-label="@s stars">★</span>
+                                }
+                            </div>
+                            <input type="hidden" asp-for="Rating" id="ratingValue" />
+                            <span asp-validation-for="Rating" class="text-danger small d-block mt-1"></span>
+                        </div>
+
+                        <!-- Comment -->
+                        <div class="mb-4">
+                            <label asp-for="Comment" class="form-label fw-semibold">Comment <span class="text-muted fw-normal">(optional)</span></label>
+                            <textarea asp-for="Comment" class="form-control" rows="4" maxlength="500"
+                                      placeholder="How was the food and pickup experience?"
+                                      oninput="document.getElementById('charCount').textContent = this.value.length"></textarea>
+                            <div class="form-text text-end"><span id="charCount">@(Model.Comment?.Length ?? 0)</span>/500</div>
+                            <span asp-validation-for="Comment" class="text-danger small"></span>
+                        </div>
+
+                        <div class="d-flex gap-2">
+                            <a asp-controller="Reservations" asp-action="MyReservations" class="btn btn-outline-secondary">Cancel</a>
+                            <button type="submit" class="btn btn-success flex-grow-1">Submit Review</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{ await Html.RenderPartialAsync("_ValidationScripts"); }
+    <script>
+        (function () {
+            var stars = document.querySelectorAll('#starInput .star');
+            var input = document.getElementById('ratingValue');
+            function paint(val) {
+                stars.forEach(function (s) {
+                    s.classList.toggle('active', parseInt(s.dataset.val) <= val);
+                });
+            }
+            stars.forEach(function (s) {
+                s.addEventListener('click', function () {
+                    input.value = this.dataset.val;
+                    paint(parseInt(this.dataset.val));
+                });
+                s.addEventListener('mouseenter', function () { paint(parseInt(this.dataset.val)); });
+            });
+            document.getElementById('starInput').addEventListener('mouseleave', function () {
+                paint(parseInt(input.value || '0'));
+            });
+            paint(parseInt(input.value || '0'));
+        })();
+    </script>
+}

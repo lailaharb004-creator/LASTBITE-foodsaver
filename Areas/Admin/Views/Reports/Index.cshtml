@@ -1,0 +1,103 @@
+@using LastBiteNew.ViewModels.Admin
+@model ReportsViewModel
+@{
+    ViewData["Title"] = "Reports";
+    Layout = "_AdminLayout";
+}
+
+<h4 class="fw-bold mb-4">Reports &amp; Analytics</h4>
+
+<!-- KPI cards -->
+<div class="row g-3 mb-4">
+    <div class="col-6 col-md-3">
+        <div class="kpi-card kpi-green">
+            <div class="kpi-number">JD @Model.TotalRevenue.ToString("N0")</div>
+            <div class="kpi-label">Total Revenue</div>
+        </div>
+    </div>
+    <div class="col-6 col-md-3">
+        <div class="kpi-card kpi-orange">
+            <div class="kpi-number">JD @Model.TotalCommission.ToString("N0")</div>
+            <div class="kpi-label">Commission Earned</div>
+        </div>
+    </div>
+    <div class="col-6 col-md-3">
+        <div class="kpi-card kpi-blue">
+            <div class="kpi-number">@Model.MealsRescued</div>
+            <div class="kpi-label">Meals Rescued</div>
+        </div>
+    </div>
+    <div class="col-6 col-md-3">
+        <div class="kpi-card kpi-dark">
+            <div class="kpi-number">@Model.TotalReservations</div>
+            <div class="kpi-label">Total Reservations</div>
+        </div>
+    </div>
+</div>
+
+<div class="row g-3">
+    <!-- Reservations by status -->
+    <div class="col-lg-5">
+        <div class="card h-100">
+            <div class="card-body">
+                <h6 class="fw-bold mb-3">Reservations by Status</h6>
+                <canvas id="statusChart" height="220"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <!-- Top restaurants -->
+    <div class="col-lg-7">
+        <div class="card h-100">
+            <div class="card-header bg-white"><h6 class="fw-bold mb-0">Top Restaurants by Revenue</h6></div>
+            <div class="card-body p-0">
+                @if (!Model.TopRestaurants.Any())
+                {
+                    <div class="text-muted small p-4 text-center">No completed pickups yet.</div>
+                }
+                else
+                {
+                    <table class="table table-hover mb-0">
+                        <thead class="table-light">
+                            <tr><th class="ps-4">Restaurant</th><th>Pickups</th><th class="pe-4">Revenue</th></tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var r in Model.TopRestaurants)
+                            {
+                                <tr>
+                                    <td class="ps-4 fw-semibold">@r.Name</td>
+                                    <td>@r.CompletedPickups</td>
+                                    <td class="pe-4 text-success fw-semibold">JD @r.Revenue.ToString("N2")</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Platform totals -->
+<div class="row g-3 mt-1">
+    <div class="col-md-4"><div class="card"><div class="card-body text-center"><div class="fw-bold fs-4">@Model.ApprovedRestaurants</div><div class="text-muted small">Approved Restaurants</div></div></div></div>
+    <div class="col-md-4"><div class="card"><div class="card-body text-center"><div class="fw-bold fs-4">@Model.TotalUsers</div><div class="text-muted small">Total Users</div></div></div></div>
+    <div class="col-md-4"><div class="card"><div class="card-body text-center"><div class="fw-bold fs-4">@Model.TotalPackages</div><div class="text-muted small">Packages Published</div></div></div></div>
+</div>
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+    <script>
+        new Chart(document.getElementById('statusChart'), {
+            type: 'doughnut',
+            data: {
+                labels: ['Pending', 'Completed', 'Cancelled', 'No-Show'],
+                datasets: [{
+                    data: [@Model.PendingCount, @Model.CompletedCount, @Model.CancelledCount, @Model.NoShowCount],
+                    backgroundColor: ['#F4A261', '#2D6A4F', '#E63946', '#6c757d']
+                }]
+            },
+            options: { plugins: { legend: { position: 'bottom' } } }
+        });
+    </script>
+}
